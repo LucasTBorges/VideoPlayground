@@ -12,6 +12,7 @@ p {
     flex-direction: column;
     justify-items: center;
     background-color: rgb(247, 249, 252);
+    margin: 25px;
 }
 
 .card:hover {

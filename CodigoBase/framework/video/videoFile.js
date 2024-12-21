@@ -12,27 +12,27 @@ export default class VideoFile extends Video {
         this.initEvent = new Observable();
     }
 
+    //Abre a janela de seleção de arquivo e retorna um observável que será executado quando o arquivo for carregado
     init(){
         this.fileInput.click();
         return this.initEvent;
     }
 
+    //Callback chamado quando o arquivo é carregado
     loadFile(){
-        try {
-            const file = this.fileInput.files[0];
-            this.video.src = URL.createObjectURL(file);
-            const video = this.video;
-            let that = this;
-            this.video.onloadedmetadata = function(){
-                that.width = video.videoWidth;
-                that.height = video.videoHeight;
-                video.width = that.width;
-                video.height = that.height;
-                that.video.play();
-                that.initEvent.execute();
-            }
-        } catch (error) {
-            this.initEvent.fail(error);
+        const file = this.fileInput.files[0];
+        this.video.src = URL.createObjectURL(file);
+        const video = this.video;
+        const that = this;
+        this.video.onloadedmetadata = function(){
+            that.width = video.videoWidth;
+            that.height = video.videoHeight;
+            video.width = that.width;
+            video.height = that.height;
+            that.initEvent.execute();
+        }
+        this.video.onerror = function(){
+            that.initEvent.fail("Erro ao carregar arquivo de vídeo");
         }
     }
 }

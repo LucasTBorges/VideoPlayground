@@ -5,8 +5,8 @@ import Webcam from './framework/video/webcam.js';
 import VideoFile from './framework/video/videoFile.js';
 import Interface from './framework/interface/interface.js';
 
-import ThreeJsCanvas from './project/components/threejsCanvas.js';
-import VideoInput from './project/components/videoInput.js';
+import ThreeJsCanvas from './project/components/threejsCanvas/threejsCanvas.js';
+import VideoInput from './project/components/videoInput/videoInput.js';
 import { GUI } 					from 'gui';
 	
 import { EffectComposer } 		from 'post_proc/EffectComposer.js';
@@ -29,7 +29,7 @@ const 	params = { enable : true };
 /// ***************************************************************
 let ui = new Interface();
 let menu = ui.appendChild("menu", new VideoInput()).show();
-let canvas = ui.appendChild("canvas", new ThreeJsCanvas()).hide();
+let canvas = ui.appendChild("canvas", new ThreeJsCanvas("Visualização de Vídeo")).hide();
 let video;
 menu.onSubmitFile(initFile);
 menu.onSelectWebcam(initWebcam);
@@ -44,7 +44,8 @@ function initWebcam(){
 }
 
 function main() {
-	menu.hide();
+	menu.destroy();
+	video.play();
 	canvas.show();
 	camera = new THREE.OrthographicCamera( -0.5, 0.5, 0.5, -0.5, -1.0, 1.0 );
 	camera.position.z = 0.01;
@@ -64,24 +65,27 @@ function main() {
 
 	renderer = new THREE.WebGLRenderer();
 	renderer.setPixelRatio( window.devicePixelRatio );
-	renderer.setSize(video.getFixedWidth()*0.9, video.getFixedHeight()*0.9);
+	const dimensions = getDimensions();
+	renderer.setSize(dimensions.x, dimensions.y);
 	renderer.setAnimationLoop( animate );
 	document.body.appendChild( renderer.domElement );
-
-	//window.addEventListener( 'resize', onWindowResize );
+	window.addEventListener( 'resize', onWindowResize );
 
 	//
 
 
 }
 
+function getDimensions(){
+	const size = 1;
+	const width = video.getFixedWidth()*size;
+	const height = video.getFixedHeight()*size;
+	return {x:width, y:height};
+}
+
 function onWindowResize() {
-
-	camera.aspect = window.innerWidth / window.innerHeight;
-	camera.updateProjectionMatrix();
-
-	renderer.setSize( window.innerWidth, window.innerHeight );
-
+	const dimensions = getDimensions();
+	renderer.setSize(dimensions.x, dimensions.y);
 }
 
 function animate() {

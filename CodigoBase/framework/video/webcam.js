@@ -5,6 +5,7 @@ export default class Webcam extends Video {
         super();
     }
 
+    //Pede permissão para acessar a webcam e retorna um observável que será executado quando a webcam for carregada
     init(){
         const loadEvent = new Observable();
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -13,7 +14,6 @@ export default class Webcam extends Video {
             }; 
             navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
                 this.video.srcObject = stream;
-                this.video.play();
                 const track = stream.getVideoTracks()[0];
                 const settings = track.getSettings();
                 this.width = settings.width;
@@ -22,8 +22,7 @@ export default class Webcam extends Video {
                 this.video.height = this.height;
                 loadEvent.execute();
             }).catch((error) => {
-                console.error('Erro no getUserMedia:', error);
-                loadEvent.fail("navigator.mediaDevices.getUserMedia não encontrado");
+                loadEvent.fail('Erro no getUserMedia:', error);
             });
         } else{
             loadEvent.fail("navigator.mediaDevices.getUserMedia não encontrado");
