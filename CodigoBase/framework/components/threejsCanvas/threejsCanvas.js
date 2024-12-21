@@ -1,4 +1,4 @@
-import Component from '../../../framework/interface/component.js';
+import Component from '../../interface/component.js';
 export default class ThreeJsCanvas extends Component {
     //Componente que contém o canvas do threejs, e um overlay com um título
     constructor(title){
@@ -22,19 +22,22 @@ export default class ThreeJsCanvas extends Component {
         }, 500);
     }
 
+    //Se o título for definido, cria um overlay com o título e o botão de fechar
     getHTML() {
-        return `
+        const overlay = `    
             <div id="title-overlay">
                 <h3 id="output-text">${this.title}</h3>
                 <div id="close-button" role="button">
                     ${this.closeIconHTML()}
                 </div>
             </div>
-            <div id="threejs-canvas"></div>
-        `;
+        `
+        let output = this.title ? overlay : '';
+        output = output + '<div id="threejs-canvas"></div>';
+        return output;
     }
 
-    //SVG do ícone de fechar (Disponível em https://icons.getbootstrap.com/icons/x-circle/)
+    //SVG do ícone de fechar título (Disponível em https://icons.getbootstrap.com/icons/x-circle/)
     closeIconHTML() {
         return `
             <svg class="icon-close" fill="currentColor" viewBox="0 0 16 16">

@@ -1,4 +1,4 @@
-import Component from '../../../framework/interface/component.js';
+import Component from '../../interface/component.js';
 export default class VideoInput extends Component {
     //Componente que contém o menu de escolha de vídeo, e emite eventos para a escolha de arquivo ou webcam
     init(){

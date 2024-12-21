@@ -1,4 +1,4 @@
-import * as THREE from "/Assets/scripts/three.js/build/three.module.js";
+import { THREE } from "../util/imports.js";
 export default class Video {
     constructor() {
         this.video = document.createElement('video');
@@ -37,7 +37,7 @@ export default class Video {
     }
 
     //Retorna a largura do vídeo ajustada para a largura da janela
-    getFixedWidth() {
+    getFitWidth() {
         const screenWidth = window.innerWidth;
         const screenHeight = window.innerHeight;
         const videoAspectRatio = this.getWidth() / this.getHeight();
@@ -51,7 +51,7 @@ export default class Video {
     }
 
     //Retorna a altura do vídeo ajustada para a altura da janela
-    getFixedHeight() {
+    getFitHeight() {
         const screenWidth = window.innerWidth;
         const screenHeight = window.innerHeight;
         const videoAspectRatio = this.getWidth() / this.getHeight();
