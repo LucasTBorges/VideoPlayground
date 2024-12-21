@@ -23,6 +23,7 @@ export default class Webcam extends Video {
                 loadEvent.execute();
             }).catch((error) => {
                 console.error('Erro no getUserMedia:', error);
+                loadEvent.fail("navigator.mediaDevices.getUserMedia não encontrado");
             });
         } else{
             loadEvent.fail("navigator.mediaDevices.getUserMedia não encontrado");

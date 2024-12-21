@@ -9,8 +9,14 @@ export default class Observable {
         return this
     }
 
+    unsubscribe(callback){
+        this.subscriptions = this.subscriptions.filter(subscription => subscription !== callback);
+        return this
+    }
+
     execute(response=null){
         this.subscriptions.forEach(callback => callback(response));
+        this.executed = true;
         return this
     }
 
