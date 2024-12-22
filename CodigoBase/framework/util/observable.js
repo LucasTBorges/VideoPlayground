@@ -17,9 +17,8 @@ export default class Observable {
     }
 
     // Executa todos os callbacks, passando o response como parâmetro
-    execute(response=null){
+    emit(response=null){
         this.subscriptions.forEach(callback => callback(response));
-        this.executed = true;
         return this
     }
 

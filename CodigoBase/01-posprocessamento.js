@@ -1,3 +1,3 @@
-import Aplicacao from "./framework/interface/aplicacao.js";
+import Aplicacao from "./framework/base/aplicacao.js";
 
-const app = new Aplicacao();
+const app = new Aplicacao("Visualização de Vídeo").init();

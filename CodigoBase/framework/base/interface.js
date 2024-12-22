@@ -10,11 +10,18 @@ export default class Interface {
     //child: Component - componente filho
     appendChild(name, child){
         this.children[name] = child;
+        child.name = name;
+        child.Interface = this;
         child.getElement().innerHTML = child.getHTML();
         child.init();
         this.root.appendChild(child.getElement());
         child.show();
         return child;
+    }
+
+    //Remove o filho passado como parâmetro do diciionário de filhos
+    removeChild(name){
+        this.children[name] = undefined;
     }
 
     //Retorna o filho passado como parâmetro

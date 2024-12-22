@@ -11,8 +11,10 @@ li a.active{
 }
 .header h1 {
     margin-top: 5px;
+    margin-bottom: 0;
 }
 .header h2{
+    margin-top: 10px;
     margin-bottom: 5px;
 }
 .column {
@@ -33,5 +35,8 @@ body {
 }
 
 .lil-gui.autoPlace{
-    right:0;
+    z-index: 1;
+}
+* {
+    font-family: "Poppins","Google Sans",Roboto,Arial,sans-serif;
 }

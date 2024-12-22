@@ -29,10 +29,9 @@ export default class VideoFile extends Video {
             that.height = video.videoHeight;
             video.width = that.width;
             video.height = that.height;
-            that.initEvent.execute();
+            that.initEvent.emit();
         }
-        this.video.onerror = function(){
-            that.initEvent.fail("Erro ao carregar arquivo de vídeo");
-        }
+        this.video.onerror = () => that.initEvent.fail("Erro ao carregar o arquivo.");
+
     }
 }

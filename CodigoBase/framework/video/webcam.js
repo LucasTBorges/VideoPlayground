@@ -20,12 +20,12 @@ export default class Webcam extends Video {
                 this.height = settings.height;
                 this.video.width = this.width;
                 this.video.height = this.height;
-                loadEvent.execute();
+                loadEvent.emit();
             }).catch((error) => {
-                loadEvent.fail('Erro no getUserMedia:', error);
+                loadEvent.fail(error);
             });
         } else{
-            loadEvent.fail("navigator.mediaDevices.getUserMedia não encontrado");
+            loadEvent.fail("Não foi possível acessar a webcam");
         }
         return loadEvent;
     }

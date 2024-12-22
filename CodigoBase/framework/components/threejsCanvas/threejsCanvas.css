@@ -8,7 +8,7 @@
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
-    z-index: 1;
+    z-index: 2;
     font-size: 2em;
     font-weight: bold;
     text-align: center;
@@ -19,7 +19,7 @@
     align-items: center;
     border-radius: 0 0 12px 0;
 }
-.closed {
+.closed-overlay {
     opacity: 0;
 }
 #title-overlay #output-text {
@@ -28,8 +28,8 @@
     margin: 0;
 }
 .icon-close {
-  width: 0.65em;
-  height: 0.65em;
+  width: 0.75em;
+  height: 0.75em;
   margin-left: 15px;
   margin-top: 1px;
 }

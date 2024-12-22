@@ -37,5 +37,6 @@ export default class Component {
     //Destrói o componente
     destroy() {
         this.element.remove();
+        this.Interface.removeChild(this.name);
     }
 }
