@@ -12,7 +12,7 @@ export default class Component {
 
     //Retorna o HTML do componente
     getHTML() {
-        throw new Error("Método abstrato getHTML não implementado");
+        return "";
     }
 
     //Retorna o elemento do componente

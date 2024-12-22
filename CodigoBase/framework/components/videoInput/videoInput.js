@@ -1,4 +1,9 @@
 import Component from '../../base/component.js';
+// Importa o css do componente
+const styleSheetUrl = import.meta.url.replace('.js', '.css');
+const styleSheet = new URL(styleSheetUrl).href;
+document.head.innerHTML += `<link rel="stylesheet" href="${styleSheet}">`;
+
 export default class VideoInput extends Component {
     //Componente que contém o menu de escolha de vídeo, e emite eventos para a escolha de arquivo ou webcam
     init(){

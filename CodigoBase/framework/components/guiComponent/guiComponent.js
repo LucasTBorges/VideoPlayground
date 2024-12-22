@@ -5,8 +5,4 @@ export default class GuiComponent extends Component {
         this.element.classList.add("autoPlace");
         this.element.classList.add("root");
     }
-
-    getHTML() {
-        return "";
-    }
 }
