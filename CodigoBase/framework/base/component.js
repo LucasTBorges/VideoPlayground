@@ -37,6 +37,8 @@ export default class Component {
     //Destrói o componente
     destroy() {
         this.element.remove();
+        //this.Interface é declarado na classe Interface durante o appendChild
         this.Interface.removeChild(this.name);
+        return this;
     }
 }

@@ -22,16 +22,16 @@ export default class VideoFile extends Video {
     loadFile(){
         const file = this.fileInput.files[0];
         this.video.src = URL.createObjectURL(file);
-        const video = this.video;
-        const that = this;
+        const videoElement = this.video;
+        const videoObj = this;
         this.video.onloadedmetadata = function(){
-            that.width = video.videoWidth;
-            that.height = video.videoHeight;
-            video.width = that.width;
-            video.height = that.height;
-            that.initEvent.emit();
+            videoObj.width = videoElement.videoWidth;
+            videoObj.height = videoElement.videoHeight;
+            videoElement.width = videoObj.width;
+            videoElement.height = videoObj.height;
+            videoObj.initEvent.emit();
         }
-        this.video.onerror = () => that.initEvent.fail("Erro ao carregar o arquivo.");
+        this.video.onerror = () => videoObj.initEvent.fail("Erro ao carregar o arquivo.");
 
     }
 }

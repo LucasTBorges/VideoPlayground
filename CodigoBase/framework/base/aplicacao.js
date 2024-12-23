@@ -1,20 +1,21 @@
 
 import { THREE, GUI } from '../util/imports.js';
 import GuiManager from './GuiManager.js';
-import Webcam from '../video/webcam.js';
-import VideoFile from '../video/videoFile.js';
 import Interface from './interface.js';
 import ThreeJsCanvas from '../components/threejsCanvas/threejsCanvas.js';
-import VideoInput from '../components/videoInput/videoInput.js';
 import Observable from '../util/observable.js';
 import ToastService from '../services/toastService.js';
 import GuiComponent from '../components/guiComponent/guiComponent.js';
+import VideoService from '../services/videoService.js';
+import LoadingService from '../services/loadingService.js';
 export default class Aplicacao {
     constructor(title){
         this.ui = new Interface();
         this.guiComponent = this.ui.appendChild("gui", new GuiComponent());
         this.gui = new GUI({container:this.guiComponent.element}).hide();
+        this.loadingService = new LoadingService(this);
         this.toastService = new ToastService(this);
+        this.videoService = new VideoService(this);
         this.guiManager = new GuiManager(this.gui);
         this.controls = {};
         this.guiManager.addTab("video", this.makeVideoControls());
@@ -23,51 +24,18 @@ export default class Aplicacao {
     }
 
     // Por padrão, o método init() pega um vídeo do usuário através 
-    // do componente VideoInput e inicia a aplicação
+    // do service videoService e inicia a aplicação
     init(){
-        this.getVideo()
-        .subscribe(()=>{
-            this.makeScene();
-            this.onInit.emit();
+        const app = this;
+        this.videoService.getVideo()
+        .subscribe((video)=>{
+            app.video = video;
+            app.makeScene();
+            app.onInit.emit();
         })
         .onFail((error)=>{
-            this.toastService.show("error","Erro ao carregar o vídeo", error, 5000);
+            app.toastService.show("error","Erro ao carregar o vídeo", error, 4000);
         });
-    }
-
-    //Cria o componente com o menu de Input de Vídeo, retorna um Observable que emite o vídeo selecionado
-    getVideo() {
-        const onGetVideo = new Observable();
-        this.menu = this.ui.appendChild("menu", new VideoInput()).show();
-        this.video;
-        const that = this;
-        this.menu.onSubmitFile(()=>{
-            that.video = new VideoFile();
-            that.video.init()
-            .subscribe(()=>{
-                onGetVideo.emit(that.video)
-                that.menu.destroy();
-            })
-            .onFail((error)=>{
-                onGetVideo.fail(error);
-            });
-        });
-        this.menu.onSelectWebcam(()=>{
-            if(that.loadingWebcam) return; //Evita que um duplo clique cause um tentativa de iniciar a webcam duas vezes
-            that.loadingWebcam = true;
-            that.video = new Webcam();
-            that.video.init()
-            .subscribe(()=>{
-                onGetVideo.emit(that.video)
-                that.menu.destroy();
-                this.loadingWebcam = false;
-            })
-            .onFail((error)=>{
-                onGetVideo.fail(error);
-                this.loadingWebcam = false;
-            });
-        });
-        return onGetVideo;
     }
 
     makeScene() {
@@ -104,7 +72,7 @@ export default class Aplicacao {
             this.guiComponent.element.style.right = "";
         } else {
             this.guiComponent.element.style.left = "";
-            this.guiComponent.element.style.right = "0px";
+            this.guiComponent.element.style.right = "0";
         }
     }
 
@@ -115,16 +83,16 @@ export default class Aplicacao {
     }
 
     makeVideoControls(){
-        const that = this
+        const app = this
         Object.assign(this.controls, 
         {"Play": () =>{
-            that.video.play();
-            that.playButton.hide()
-            that.pauseButton.show()
+            app.video.play();
+            app.playButton.hide()
+            app.pauseButton.show()
         }, "Pause": () =>{
-            that.video.pause();
-            that.pauseButton.hide()
-            that.playButton.show()
+            app.video.pause();
+            app.pauseButton.hide()
+            app.playButton.show()
         }});
         this.playButton = this.gui.add(this.controls, "Play").hide();
         this.pauseButton = this.gui.add(this.controls, "Pause");

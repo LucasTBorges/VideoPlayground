@@ -59,9 +59,9 @@ export default class Toast extends Component {
         this.closed = true;
         this.element.classList.remove('show-toast');
         this.element.classList.add('hide-toast');
-        const that = this;
+        const toast = this;
         setTimeout(() => {
-            that.destroy();
+            toast.destroy();
         }, 500);
     }
 
