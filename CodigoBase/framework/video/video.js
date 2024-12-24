@@ -10,6 +10,7 @@ export default class Video {
         this.video.loop = true;
         this.texture = null;
         this.isPlaying = false;
+        this.source = undefined; // ("webcam" | "file") - Indica a origem do vídeo, deve ser definido do construtor das classes filhas
     }
 
     //Função que resgata o vídeo e retorna um observável que será executado quando o vídeo for carregado

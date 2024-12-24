@@ -3,6 +3,7 @@ import Video from "./video.js";
 export default class Webcam extends Video {
     constructor() {
         super();
+        this.source = "webcam";
     }
 
     //Pede permissão para acessar a webcam e retorna um observável que será executado quando a webcam for carregada

@@ -20,7 +20,7 @@ export default class Filtro {
     }
 
     //Deve retornar o shader do filtro
-    makeShader(){
-        throw new Error("makeShader não foi implementado");
+    getShader(){
+        throw new Error("getShader não foi implementado");
     }
 }

@@ -13,6 +13,8 @@ export default class Aplicacao {
         this.ui = new Interface();
         this.guiComponent = this.ui.appendChild("gui", new GuiComponent());
         this.gui = new GUI({container:this.guiComponent.element}).hide();
+        // A ordem de inicialização dos serviços é importante.
+        // As dependências de um serviço devem ser inicializadas antes dele
         this.loadingService = new LoadingService(this);
         this.toastService = new ToastService(this);
         this.videoService = new VideoService(this);

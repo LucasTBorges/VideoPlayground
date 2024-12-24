@@ -44,6 +44,18 @@ export default class GuiManager {
         return this.tabs[name];
     }
 
+    //Esconde uma aba
+    hideTab(name){
+        this.tabs[name].forEach(item => item.hide());
+        return this;
+    }
+
+    //Mostra uma aba
+    showTab(name){
+        this.tabs[name].forEach(item => item.show());
+        return this;
+    }
+
     //Adiciona um item a um conjunto de guis
     appendToTab(name, item){
         this.hideable.push(item);

@@ -4,9 +4,9 @@ import Webcam from '../video/webcam.js';
 import VideoFile from '../video/videoFile.js';
 import Observable from "../util/observable.js";
 export default class VideoService extends Service {
+    //Depende do ToastService e do LoadingService
     constructor(app) {
         super(app);
-        //Depende do toastService para mostrar mensagens de erro
         this.toastService = app.toastService;
         this.loadingService = app.loadingService;
         if (!this.toastService) throw new Error("VideoService depende do ToastService. Service não encontrado na aplicação.");
