@@ -27,6 +27,7 @@ export default class Aplicacao {
         this.onInit.subscribe(()=>{
             this.video.play();
         });
+        this.onResizeEvent = new Observable();
     }
 
     // Ao iniciar a aplicação, onInit é emitido e o vídeo é reproduzido
@@ -59,7 +60,7 @@ export default class Aplicacao {
         this.renderer.setPixelRatio( window.devicePixelRatio );
         this.composer = new EffectComposer(this.renderer);
         this.composer.addPass(new RenderPass(this.scene, this.camera));
-        const colorCorrection = new ColorSpaceFix(this.guiManager,this.composer);
+        const colorCorrection = new ColorSpaceFix(this);
         this.gui.show();
         this.onResize();
         this.renderer.setAnimationLoop(this.animate.bind(this));
@@ -69,9 +70,11 @@ export default class Aplicacao {
 
     onResize() {
         const dimensions = this.getDimensions();
+        this.dimensions = dimensions;
         this.renderer.setSize(dimensions.x, dimensions.y);
         this.composer.setSize(dimensions.x, dimensions.y);
         this.guiComponent.fixPosition(dimensions);
+        this.onResizeEvent.emit(dimensions);
     }
 
     getDimensions() {
