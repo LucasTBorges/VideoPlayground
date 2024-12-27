@@ -1,12 +1,12 @@
-import { ShaderPass } from "../util/imports";
+import { ShaderPass } from "../util/imports.js";
 export default class Filtro {
     static nextId = 0;
     constructor(guiManager, composer) {
         this.title = this.getTitle().replace(/\s/g, '-') + Filtro.nextId++;
         this.gui = guiManager.getGui();
         this.parentManager = guiManager;
-        this.parameters = {};
-        this.shader = makeShader();
+        this.parameters = this.makeParameters();
+        this.shader = this.makeShader();
         this.shaderPass = new ShaderPass(this.shader);
         this.composer = composer;
         this.init();
@@ -18,7 +18,7 @@ export default class Filtro {
     }
 
     init(){
-        this.parentManager.addTab(title, this.makeControls());
+        this.parentManager.addTab(this.title, this.makeControls());
         this.composer.addPass(this.shaderPass);
     }
 
@@ -39,6 +39,10 @@ export default class Filtro {
         for (const key in values) {
             this.shaderPass.uniforms[key].value = values[key];
         }
+    }
+
+    makeParameters(){
+        return {};
     }
 
     //Deve gerar os controles do filtro no this.gui e retornar a lista de itens do gui que foram criados

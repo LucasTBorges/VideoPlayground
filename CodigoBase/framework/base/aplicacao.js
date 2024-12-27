@@ -1,5 +1,5 @@
 
-import { THREE, GUI } from '../util/imports.js';
+import { THREE, GUI, EffectComposer, RenderPass } from '../util/imports.js';
 import GuiManager from './GuiManager.js';
 import Interface from './interface.js';
 import ThreeJsCanvas from '../components/threejsCanvas/threejsCanvas.js';
@@ -8,6 +8,7 @@ import ToastService from '../services/toastService.js';
 import GuiComponent from '../components/guiComponent/guiComponent.js';
 import VideoService from '../services/videoService.js';
 import LoadingService from '../services/loadingService.js';
+import ColorSpaceFix from '../util/colorSpaceFix.js';
 export default class Aplicacao {
     constructor(title){
         this.ui = new Interface();
@@ -39,6 +40,7 @@ export default class Aplicacao {
         .onFail((error)=>{
             this.toastService.show("error","Erro ao carregar o vídeo", error, 4000);
         });
+        return this;
     }
 
     makeScene() {
@@ -55,6 +57,9 @@ export default class Aplicacao {
         this.scene.add( this.plane );
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setPixelRatio( window.devicePixelRatio );
+        this.composer = new EffectComposer(this.renderer);
+        this.composer.addPass(new RenderPass(this.scene, this.camera));
+        const colorCorrection = new ColorSpaceFix(this.guiManager,this.composer);
         this.gui.show();
         this.onResize();
         this.renderer.setAnimationLoop(this.animate.bind(this));
@@ -65,6 +70,7 @@ export default class Aplicacao {
     onResize() {
         const dimensions = this.getDimensions();
         this.renderer.setSize(dimensions.x, dimensions.y);
+        this.composer.setSize(dimensions.x, dimensions.y);
         this.guiComponent.fixPosition(dimensions);
     }
 

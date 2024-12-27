@@ -39,11 +39,7 @@ export default class Dropup extends Component {
         return `
             <button class="dropbtn">${this.label}</button>
             <div class="dropup-content">
-                ${this.items.map((item) => {
-                    return `
-                        <a id="${item.id}">${item.label}</a>
-                    `
-                }).join('')}
+                ${this.items.map((item) =>`<a id="${item.id}">${item.label}</a>`).join('')}
             </div>
         `;
     }
@@ -56,6 +52,5 @@ export default class Dropup extends Component {
             this.element.style.left = "";
             this.element.style.right = "0";
         }
-        console.log(window.innerWidth - canvasDimensions.x,this.element.clientWidth);
     }
 }

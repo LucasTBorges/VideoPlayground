@@ -23,7 +23,8 @@ export default class Video {
     getTexture(){
         if (this.texture) return this.texture;
         this.texture = new THREE.VideoTexture(this.video,THREE.UVMapping,THREE.MirroredRepeatWrapping,THREE.MirroredRepeatWrapping);
-        this.texture.colorSpace = THREE.SRGBColorSpace;
+        this.texture.colorSpace = THREE.LinearSRGBColorSpace;
+        //this.texture.colorSpace = THREE.SRGBColorSpace; -> Causa problemas de cor no vídeo quando um filtro é aplicado
         return this.texture;
     }
 

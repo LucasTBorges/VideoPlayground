@@ -1,6 +1,6 @@
 import { THREE } from "../util/imports.js";
 export default class Shader {
-    constructor(options){
+    constructor(options={}){
         this.name = options.name;//string
         this.uniforms = options.uniforms;//Lista de objetos {tipo: string, nome: string, valor: any}
         this.vertexShader = options.vertexShader;//string (GLSL)
@@ -59,7 +59,7 @@ export default class Shader {
             ${this.common()}
             ${this.getAuxiliarFunctions()}
             vec4 mainOriginal(){
-                ${this.getMain()}
+                ${this.getMainOriginal()}
             }
             void main() {
                 ${this._getTrueMain()}
@@ -69,6 +69,7 @@ export default class Shader {
 
     _getUniformsGLSL(){//string (GLSL)
         const uniforms = this.getUniforms();
+        let uniformsGLSL = "";
         for(let uniform of uniforms){
             uniformsGLSL += `uniform ${uniform.tipo} ${uniform.nome};\n`;
         }
