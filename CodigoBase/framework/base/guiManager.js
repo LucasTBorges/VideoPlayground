@@ -56,6 +56,12 @@ export default class GuiManager {
         return this;
     }
 
+    //Remove uma aba
+    removeTab(name){
+        this.tabs[name].forEach(item => item.destroy());
+        delete this.tabs[name];
+        return this;
+    }
     //Adiciona um item a um conjunto de guis
     appendToTab(name, item){
         this.hideable.push(item);

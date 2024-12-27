@@ -23,7 +23,7 @@ export default class Component {
     //Mostra o componente
     show() {
         this.visible = true;
-        this.element.style.display = 'block';
+        this.element.style.display = '';
         return this;
     }
 

@@ -7,16 +7,16 @@ export default class Interface {
 
     //Adiciona um filho ao objeto Interface
     //name: string - nome do filho
-    //child: Component - componente filho
-    appendChild(name, child){
-        this.children[name] = child;
-        child.name = name;
-        child.Interface = this;
-        child.getElement().innerHTML = child.getHTML();
-        child.init();
-        this.root.appendChild(child.getElement());
-        child.show();
-        return child;
+    //component: Component - componente filho
+    addComponent(name, component){
+        this.children[name] = component;
+        component.name = name;
+        component.Interface = this;
+        component.getElement().innerHTML = component.getHTML();
+        component.init();
+        this.root.appendChild(component.getElement());
+        component.show();
+        return component;
     }
 
     //Remove o filho passado como parâmetro do diciionário de filhos

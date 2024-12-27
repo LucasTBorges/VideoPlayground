@@ -1,4 +1,4 @@
-import { THREE } from "../util/imports.JS";
+import { THREE } from "../util/imports.js";
 export default class Shader {
     constructor(options){
         this.name = options.name;//string

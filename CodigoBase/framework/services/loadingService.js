@@ -9,7 +9,7 @@ export default class LoadingService extends Service {
     show(){
         if (this.loading) return;
         this.loading = true;
-        this.component = this.ui.appendChild("loading", new LoadingComponent()).show();
+        this.component = this.ui.addComponent("loading", new LoadingComponent()).show();
     }
 
     hide(){

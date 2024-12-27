@@ -27,7 +27,7 @@
     box-shadow: 0 15px 30px rgba(0,0,0,0.08);
 }
 .success-border{
-    border-left: 0.55em solid #47D764;
+    border-left: 0.5em solid #47D764;
 }
 .error-border{
     border-left: 0.5em solid #ff355b;

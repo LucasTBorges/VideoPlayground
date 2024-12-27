@@ -1,13 +1,23 @@
+:root{
+    --primary: #047daa;
+    --secondary: #aabbcc;
+    --grey: #f7f9fc;
+    --select: hsl(210, 40%, 90%);
+    --primary-rgb: 4, 125, 170;
+    --secondary-rgb: 170, 187, 204;
+    --grey-rgb: 247, 249, 252;
+}
+
 .header {
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: #aabbcc;
+    background-color: var(--secondary);
 }
 .footer {
-  background-color: #aabbcc; 
+  background-color: var(--secondary);
 }
 li a.active{
-    background-color: #047daa;
+    background-color: var(--primary);
 }
 .header h1 {
     margin-top: 5px;
@@ -34,9 +44,6 @@ body {
     margin: 0;
 }
 
-.lil-gui.autoPlace{
-    z-index: 1;
-}
 * {
     font-family: "Poppins","Google Sans",Roboto,Arial,sans-serif;
 }

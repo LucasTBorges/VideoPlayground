@@ -11,8 +11,8 @@ import LoadingService from '../services/loadingService.js';
 export default class Aplicacao {
     constructor(title){
         this.ui = new Interface();
-        this.guiComponent = this.ui.appendChild("gui", new GuiComponent());
-        this.gui = new GUI({container:this.guiComponent.element}).hide();
+        this.guiComponent = this.ui.addComponent("gui", new GuiComponent());
+        this.gui = new GUI({container:this.guiComponent.getElement()}).hide();
         // A ordem de inicialização dos serviços é importante.
         // As dependências de um serviço devem ser inicializadas antes dele
         this.loadingService = new LoadingService(this);
@@ -21,22 +21,23 @@ export default class Aplicacao {
         this.guiManager = new GuiManager(this.gui);
         this.controls = {};
         this.guiManager.addTab("video", this.makeVideoControls());
-        this.canvas = this.ui.appendChild("canvas", new ThreeJsCanvas(title)).hide();
+        this.canvas = this.ui.addComponent("canvas", new ThreeJsCanvas(title)).hide();
         this.onInit = new Observable();
+        this.onInit.subscribe(()=>{
+            this.video.play();
+        });
     }
 
-    // Por padrão, o método init() pega um vídeo do usuário através 
-    // do service videoService e inicia a aplicação
+    // Ao iniciar a aplicação, onInit é emitido e o vídeo é reproduzido
     init(){
-        const app = this;
         this.videoService.getVideo()
         .subscribe((video)=>{
-            app.video = video;
-            app.makeScene();
-            app.onInit.emit();
+            this.video = video;
+            this.makeScene();
+            this.onInit.emit();
         })
         .onFail((error)=>{
-            app.toastService.show("error","Erro ao carregar o vídeo", error, 4000);
+            this.toastService.show("error","Erro ao carregar o vídeo", error, 4000);
         });
     }
 
@@ -55,27 +56,16 @@ export default class Aplicacao {
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setPixelRatio( window.devicePixelRatio );
         this.gui.show();
-        this.fitScreen();
+        this.onResize();
         this.renderer.setAnimationLoop(this.animate.bind(this));
         this.canvas.getElement().appendChild(this.renderer.domElement);
-        window.addEventListener( 'resize', this.fitScreen.bind(this));
-        this.video.play();
+        window.addEventListener( 'resize', this.onResize.bind(this));
     }
 
-    fitScreen() {
+    onResize() {
         const dimensions = this.getDimensions();
         this.renderer.setSize(dimensions.x, dimensions.y);
-        //Ajusta a posição do GUI: se a tela for grande o suficiente, o GUI fica à direita do vídeo
-        //Caso contrário, o GUI fica o mais a direita possível
-        //Para funcionar, o GUI deve estar visível
-        console.log(window.innerWidth - dimensions.x, this.gui.domElement.clientWidth);
-        if(window.innerWidth - dimensions.x >= this.gui.domElement.clientWidth){
-            this.guiComponent.element.style.left = dimensions.x + "px";
-            this.guiComponent.element.style.right = "";
-        } else {
-            this.guiComponent.element.style.left = "";
-            this.guiComponent.element.style.right = "0";
-        }
+        this.guiComponent.fixPosition(dimensions);
     }
 
     getDimensions() {

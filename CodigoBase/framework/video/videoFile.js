@@ -10,6 +10,7 @@ export default class VideoFile extends Video {
         this.fileInput.accept = 'video/*';
         this.fileInput.addEventListener('change', this.loadFile.bind(this));
         this.initEvent = new Observable();
+        this.source = "file";
     }
 
     //Abre a janela de seleção de arquivo e retorna um observável que será executado quando o arquivo for carregado

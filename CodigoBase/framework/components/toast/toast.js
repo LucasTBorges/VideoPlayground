@@ -1,5 +1,5 @@
 import Component from "../../base/component.js";
-// Importa o css do componente
+// Importa o css do componente para o documento (utiliza o arquivo no mesmo diretório com o mesmo nome do arquivo js)
 const styleSheetUrl = import.meta.url.replace('.js', '.css');
 const styleSheet = new URL(styleSheetUrl).href;
 document.head.innerHTML += `<link rel="stylesheet" href="${styleSheet}">`;
@@ -45,6 +45,7 @@ export default class Toast extends Component {
         this.closeButton = this.element.querySelector(`#${this.id}-close-button`);
         this.closeButton.onclick = this.hideToast.bind(this);
         },50)
+        return this;
     }
 
     showToast(){

@@ -21,7 +21,7 @@ export default class VideoService extends Service {
         const service = this;
         this.gettingVideo = true;
         const onGetVideo = new Observable();
-        const menu = this.ui.appendChild("videoInput", new VideoInput()).show();
+        const menu = this.ui.addComponent("videoInput", new VideoInput()).show();
 
         let video;
         menu.onSubmitFile(()=>{

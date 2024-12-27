@@ -6,6 +6,7 @@ export default class ShaderFaceOnly extends Shader {
     }
     getUniforms() {
         let uniforms = super.getUniforms();
+        uniforms.push({ tipo:"bool", nome:"faceOnly" });
         uniforms.push({ tipo:"vec2", nome:"facePos" });
         uniforms.push({ tipo:"vec2", nome:"faceDim" });
     }
@@ -24,7 +25,7 @@ export default class ShaderFaceOnly extends Shader {
             vec2 texel = texelSize();
             vec2 faceBox = facePos * texel;
             vec2 faceBoxSize = faceDim * texel;
-            if (filterOn&&isWithinBoundingBox(vUv, faceBox, faceBoxSize)){
+            if (filterOn&&(!faceOnly||isWithinBoundingBox(vUv, faceBox, faceBoxSize))){
                 gl_FragColor = mainOriginal();
                 return;
             }
