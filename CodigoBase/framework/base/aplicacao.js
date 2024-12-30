@@ -28,6 +28,9 @@ export default class Aplicacao {
             this.video.play();
         });
         this.onResizeEvent = new Observable();
+        this.onRender = new Observable(); //Emite timeDelta
+        this.clock = new THREE.Clock();
+        this.time = 0;
     }
 
     // Ao iniciar a aplicação, onInit é emitido e o vídeo é reproduzido
@@ -101,6 +104,9 @@ export default class Aplicacao {
     }
 
     animate() {
-        this.renderer.render( this.scene, this.camera );
+        this.composer.render();
+        const delta = this.clock.getDelta();
+        this.time += delta;
+        this.onRender.emit(delta);
     }
 }

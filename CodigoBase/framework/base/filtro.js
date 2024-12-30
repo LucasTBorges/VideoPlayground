@@ -14,7 +14,10 @@ export default class Filtro {
         this.composer = composer;
         this.app = app;
         this.resizeEvent = app.onResizeEvent.subscribe(this.onResize.bind(this));
+        this.renderEvent = app.onRender.subscribe(this.onRender.bind(this));
+        this.time = 0;
         this.onResize(this.app.getDimensions());
+        this.onRender(0);
         this.init();
     }
 
@@ -53,6 +56,16 @@ export default class Filtro {
 
     onResize(dimensions){
         this.shaderPass.uniforms.resolution.value = new THREE.Vector2(dimensions.x, dimensions.y);
+    }
+
+    onRender(timeDelta){
+        if(this.parameters.Pause){
+            return;
+        } else{
+            this.time += timeDelta;
+            this.shaderPass.uniforms.time.value = this.time;
+        }
+
     }
     
 

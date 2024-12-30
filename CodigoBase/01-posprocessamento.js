@@ -2,6 +2,7 @@ import Aplicacao from "./framework/base/aplicacao.js";
 import Dropup from "./framework/components/dropup/dropup.js";
 import MonochromaticFilter from "./project/filters/monochromatic.js";
 import DotScreenFilter from "./project/filters/dotscreen.js";
+import RainbowFilter from "./project/filters/rainbow.js";
 class postProcApp extends Aplicacao {
     constructor() {
         super("Pós-processamento de vídeos");
@@ -12,6 +13,7 @@ class postProcApp extends Aplicacao {
         this.filterPicker = new Dropup("Adicionar Filtro", [
             {label: "Monocromático", value: MonochromaticFilter},
             {label: "Dot Screen", value: DotScreenFilter},
+            {label: "Rainbow", value: RainbowFilter}
         ], (filter) => {
             new filter(this);
         });
@@ -25,10 +27,6 @@ class postProcApp extends Aplicacao {
         if(this.filterPicker){
             this.filterPicker.fixPosition(this.getDimensions());
         }
-    }
-
-    animate() {
-        this.composer.render();
     }
 }
 

@@ -20,7 +20,8 @@ export default class Shader {
         const padrao = [
             {tipo: "vec2", nome: "resolution", valor: new THREE.Vector2(1,1)},
             {tipo: "sampler2D", nome: "tDiffuse"},
-            {tipo : "bool", nome: "filterOn", valor:true}
+            {tipo : "bool", nome: "filterOn", valor:true},
+            {tipo: "float", nome: "time", valor: 0}
         ];
         return padrao.concat(this.uniforms??[]);
     }
