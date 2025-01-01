@@ -49,14 +49,14 @@ export default class Aplicacao {
 
     makeScene() {
         this.canvas.show();
-        this.camera = new THREE.OrthographicCamera( -0.5, 0.5, 0.5, -0.5, -1.0, 1.0 );
+        this.camera = new THREE.OrthographicCamera( 0, 1, 1, 0, -1.0, 1.0 );
         this.camera.position.z = 0.01;
         this.scene = new THREE.Scene();
         const tex = this.video.getTexture();
-        const geometry = new THREE.PlaneGeometry( 8, 6 );
+        const geometry = new THREE.PlaneGeometry( 1, 1 );
         geometry.scale( 0.5, 0.5, 0.5 );
         this.plane = new THREE.Mesh( new THREE.PlaneGeometry(), new THREE.MeshBasicMaterial( { map : tex }) );
-        this.plane.position.set(0.0, 0.0, -0.5);
+        this.plane.position.set(0.5, 0.5, -0.5);
         this.plane.name = "video";
         this.scene.add( this.plane );
         this.renderer = new THREE.WebGLRenderer();
@@ -83,7 +83,7 @@ export default class Aplicacao {
     getDimensions() {
         const width = this.video.getFitWidth();
         const height = this.video.getFitHeight();
-        return {x: width, y: height};
+        return {x: width, y: height, rawX: this.video.getWidth(), rawY: this.video.getHeight()};
     }
 
     makeVideoControls(){

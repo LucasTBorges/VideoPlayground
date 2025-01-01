@@ -66,6 +66,11 @@ export default class Video {
         }
     }
 
+    //Retorna a proporção entre a o vídeo original e o vídeo ajustado para a largura da janela
+    getFitRatio() {
+        return this.getFitWidth() / this.getWidth();
+    }
+
     //Reproduz o vídeo
     play(){
         if (this.isPlaying) return;

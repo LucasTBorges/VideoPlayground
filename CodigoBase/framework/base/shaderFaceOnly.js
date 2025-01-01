@@ -7,14 +7,16 @@ export default class ShaderFaceOnly extends Shader {
     getUniforms() {
         let uniforms = super.getUniforms();
         uniforms.push({ tipo:"bool", nome:"faceOnly" });
-        uniforms.push({ tipo:"vec2", nome:"facePos" });
-        uniforms.push({ tipo:"vec2", nome:"faceDim" });
+        uniforms.push({ tipo:"vec2", nome:"boxUBounds" });
+        uniforms.push({ tipo:"vec2", nome:"boxVBounds" });
+        uniforms.push({ tipo:"bool", nome:"faceDetected" });
+        return uniforms;
     }
 
     common(){
         const newCommons = `
-            bool isWithinBoundingBox(vec2 uv, vec2 faceBox, vec2 faceBoxSize){
-                return uv.x >= faceBox.x && uv.x <= faceBox.x + faceBoxSize.x && uv.y >= faceBox.y && uv.y <= faceBox.y + faceBoxSize.y;
+            bool isWithinBoundingBox(){
+                return vUv.x >= boxUBounds.x && vUv.x <= boxUBounds.y && vUv.y >= boxVBounds.x && vUv.y <= boxVBounds.y;
             }
         `
         return super.common() + newCommons;
@@ -22,10 +24,7 @@ export default class ShaderFaceOnly extends Shader {
 
     _getTrueMain(){
         return `
-            vec2 texel = texelSize();
-            vec2 faceBox = facePos * texel;
-            vec2 faceBoxSize = faceDim * texel;
-            if (filterOn&&(!faceOnly||isWithinBoundingBox(vUv, faceBox, faceBoxSize))){
+            if (filterOn && (!faceOnly || (faceDetected && isWithinBoundingBox()))){
                 gl_FragColor = mainOriginal();
                 return;
             }

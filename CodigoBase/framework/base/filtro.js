@@ -1,5 +1,7 @@
 import { ShaderPass } from "../util/imports.js";
 import { THREE } from "../../framework/util/imports.js";
+import Observable from "../util/observable.js";
+import ShaderFaceOnly from "./shaderFaceOnly.js";
 export default class Filtro {
     static nextId = 0;
     constructor(app) {
@@ -16,6 +18,8 @@ export default class Filtro {
         this.resizeEvent = app.onResizeEvent.subscribe(this.onResize.bind(this));
         this.renderEvent = app.onRender.subscribe(this.onRender.bind(this));
         this.time = 0;
+        if(this.app.faceApiService&&this.shaderPass instanceof ShaderFaceOnly) 
+            this.app.faceApiService.detectFaceEvent.subscribe(this.onDetectFace.bind(this));
         this.onResize(this.app.getDimensions());
         this.onRender(0);
         this.init();
@@ -66,6 +70,16 @@ export default class Filtro {
             this.shaderPass.uniforms.time.value = this.time;
         }
 
+    }
+
+    onDetectFace(detectionPromise){
+        if (!this.app.faceApiService||!(this.shaderPass instanceof ShaderFaceOnly)) return;
+        detectionPromise.then((detection)=>{
+        this.shaderPass.uniforms.faceDetected.value = detection.faceDetected;
+        const uvBounds = this.app.faceApiService.getUVBounds(detection);
+        this.shaderPass.uniforms.boxUBounds.value = uvBounds.u;
+        this.shaderPass.uniforms.boxVBounds.value = uvBounds.v;
+        });
     }
     
 

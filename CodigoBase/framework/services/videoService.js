@@ -22,7 +22,6 @@ export default class VideoService extends Service {
         this.gettingVideo = true;
         const onGetVideo = new Observable();
         const menu = this.ui.addComponent("videoInput", new VideoInput()).show();
-
         let video;
         menu.onSubmitFile(()=>{
             video = new VideoFile();
@@ -43,16 +42,16 @@ export default class VideoService extends Service {
             video = new Webcam();
             video.init()
             .subscribe(()=>{
+                service.loadingService.hide();
                 onGetVideo.emit(video)
                 menu.destroy();
                 service.gettingVideo = false;
                 service.loadingWebcam = false;
-                service.loadingService.hide();
             })
             .onFail((error)=>{
+                service.loadingService.hide();
                 onGetVideo.fail(error);
                 service.loadingWebcam = false;
-                service.loadingService.hide();
             });
         });
         return onGetVideo;
