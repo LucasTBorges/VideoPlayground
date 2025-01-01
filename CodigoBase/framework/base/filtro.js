@@ -18,7 +18,7 @@ export default class Filtro {
         this.resizeEvent = app.onResizeEvent.subscribe(this.onResize.bind(this));
         this.renderEvent = app.onRender.subscribe(this.onRender.bind(this));
         this.time = 0;
-        if(this.app.faceApiService&&this.shaderPass instanceof ShaderFaceOnly) 
+        if(this.app.faceApiService!==undefined&&this.shaderBase instanceof ShaderFaceOnly) 
             this.app.faceApiService.detectFaceEvent.subscribe(this.onDetectFace.bind(this));
         this.onResize(this.app.getDimensions());
         this.onRender(0);
@@ -72,14 +72,12 @@ export default class Filtro {
 
     }
 
-    onDetectFace(detectionPromise){
-        if (!this.app.faceApiService||!(this.shaderPass instanceof ShaderFaceOnly)) return;
-        detectionPromise.then((detection)=>{
+    onDetectFace(detection){
+        if (this.app.faceApiService===undefined||!(this.shaderBase instanceof ShaderFaceOnly)) return;
         this.shaderPass.uniforms.faceDetected.value = detection.faceDetected;
         const uvBounds = this.app.faceApiService.getUVBounds(detection);
         this.shaderPass.uniforms.boxUBounds.value = uvBounds.u;
         this.shaderPass.uniforms.boxVBounds.value = uvBounds.v;
-        });
     }
     
 

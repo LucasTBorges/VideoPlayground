@@ -7,7 +7,8 @@ export default class ColorSpaceFix extends Filtro {
         return[];
     }
     makeShader() {
-        const shader = new Shader().getShader();
+        this.shaderBase = new Shader();
+        const shader = this.shaderBase.getShader();
         return shader;
     }
     getTitle() {

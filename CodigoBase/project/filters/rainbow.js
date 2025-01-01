@@ -99,7 +99,8 @@ export default class RainbowFilter extends Filtro {
     }
 
     makeShader() {
-        const shader = new Shader(RainbowShaderOptions).getShader();
+        this.shaderBase = new Shader(RainbowShaderOptions);
+        const shader = this.shaderBase.getShader();
         return shader;
     }
 }

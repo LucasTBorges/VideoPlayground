@@ -48,7 +48,8 @@ export default class DotScreenFilter extends Filtro {
     }
 
     makeShader() {
-        const shader = new Shader(DotScreenShaderOptions).getShader();
+        this.shaderBase = new Shader(DotScreenShaderOptions);
+        const shader = this.shaderBase.getShader();
         return shader;
     }
 }

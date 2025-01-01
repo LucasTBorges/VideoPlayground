@@ -127,7 +127,7 @@ export default class FaceApiService extends Service {
 
     //Retorna o tamanho e posição para a geometria do plano que representa a bounding box do rosto
     getPlaneInformation(detection){
-        const scaleMultiplier = {x:this.modelPicked===MODELS.MOBILENET?2:1.5, y:this.modelPicked===MODELS.MOBILENET?2:1.7};
+        const scaleMultiplier = {x:this.modelPicked===MODELS.MOBILENET?2:1.7, y:this.modelPicked===MODELS.MOBILENET?2:1.8};
         const dim ={x:detection.faceDim.x, y:detection.faceDim.y}
         const pos= {x:(detection.facePos.x)+0.5*dim.x,
                     y: 1-(detection.facePos.y)-0.5*dim.y}
@@ -139,12 +139,12 @@ export default class FaceApiService extends Service {
 
     //Retorna os limites da bounding box do rosto nas coordenadas UV
     getUVBounds(detection){
-        const scaleMultiplier = {x:this.modelPicked===MODELS.MOBILENET?2:1.5, y:this.modelPicked===MODELS.MOBILENET?2:1.7};
+        const scaleMultiplier = {x:this.modelPicked===MODELS.MOBILENET?1:0.85, y:this.modelPicked===MODELS.MOBILENET?1:0.9};
         const dim ={x:detection.faceDim.x, y:detection.faceDim.y}
         const pos= {x:(detection.facePos.x),
                     y: 1-(detection.facePos.y)}
         return {
-            u: new THREE.Vector2(pos.x,pos.x+dim.x*scaleMultiplier.x),
+            u: new THREE.Vector2(pos.x+dim.x*0.5*-(scaleMultiplier.x-1),pos.x+dim.x*scaleMultiplier.x),
             v: new THREE.Vector2(pos.y-dim.y*scaleMultiplier.y,pos.y)
         }
     }

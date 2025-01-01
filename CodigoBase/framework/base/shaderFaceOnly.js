@@ -1,15 +1,16 @@
 import Shader from "./shader.js";
+import { THREE } from "../util/imports.js";
 export default class ShaderFaceOnly extends Shader {
-    constructor(){
-        super();
+    constructor(options){
+        super(options);
         this.isFaceOnly = true;
     }
     getUniforms() {
         let uniforms = super.getUniforms();
-        uniforms.push({ tipo:"bool", nome:"faceOnly" });
-        uniforms.push({ tipo:"vec2", nome:"boxUBounds" });
-        uniforms.push({ tipo:"vec2", nome:"boxVBounds" });
-        uniforms.push({ tipo:"bool", nome:"faceDetected" });
+        uniforms.push({ tipo:"bool", nome:"faceOnly", valor: true });
+        uniforms.push({ tipo:"vec2", nome:"boxUBounds", valor: new THREE.Vector2(0,0) });
+        uniforms.push({ tipo:"vec2", nome:"boxVBounds", valor: new THREE.Vector2(0,0) });
+        uniforms.push({ tipo:"bool", nome:"faceDetected", valor: false });
         return uniforms;
     }
 

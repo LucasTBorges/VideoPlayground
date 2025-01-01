@@ -14,7 +14,7 @@ const MonochromaticShaderOptions = {
     `
 };
 
-export default class MonochromaticFilter extends Filtro {    
+export default class MonochromaticFilter extends Filtro {
     makeParameters() {
         const filter =this;
         return {
@@ -35,6 +35,7 @@ export default class MonochromaticFilter extends Filtro {
     }
 
     makeShader() {
+        this.shaderBase = new Shader(MonochromaticShaderOptions);
         const shader = new Shader(MonochromaticShaderOptions).getShader();
         return shader;
     }
