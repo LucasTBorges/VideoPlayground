@@ -72,7 +72,7 @@ export default class GuiManager {
     //Esconde todos os guis que podem ser escondidos menos os que estão na lista de guis que sempre estarão visíveis
     switchTo(name){
         this.hideable.forEach(item => item.hide());
-        this.tabs[name].forEach(item => item.show());
+        (this.tabs[name]??[]).forEach(item => item.show());
         return this;
     }
 

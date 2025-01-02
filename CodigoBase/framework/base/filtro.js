@@ -63,13 +63,8 @@ export default class Filtro {
     }
 
     onRender(timeDelta){
-        if(this.parameters.Pause){
-            return;
-        } else{
-            this.time += timeDelta;
-            this.shaderPass.uniforms.time.value = this.time;
-        }
-
+        this.time += timeDelta;
+        this.shaderPass.uniforms.time.value = this.time;
     }
 
     onDetectFace(detection){

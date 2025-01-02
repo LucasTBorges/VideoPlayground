@@ -1,6 +1,5 @@
 import Aplicacao from "./aplicacao.js";
 import FaceApiService from "../services/faceapiService.js";
-import Filtro from "./filtro.js";
 export default class FaceApp extends Aplicacao {
     constructor(title){
         super(title);
@@ -35,9 +34,9 @@ export default class FaceApp extends Aplicacao {
         super.animate();
         if (this.video.isPlaying)
             this.faceApiService.detectFace();
-        if(this.frame<5){//Espera 4 frames para desligar o loading (A aplicação fica alguns segundos em tela preta antes de inicializar de fato)
+        if(this.frame<7){//Espera 6 frames para desligar o loading (A aplicação fica alguns segundos em tela preta antes de inicializar de fato)
             this.frame++;
-            if(this.frame==4){
+            if(this.frame==6){
                 this.loadingService.hide();
             }
         }

@@ -2,6 +2,7 @@ import Filtro from "../../framework/base/filtro.js";
 import Shader from "../../framework/base/shader.js";
 import { THREE } from "../../framework/util/imports.js";
 const DotScreenShaderOptions = {
+    //Baseado no DotScreen shader nativo do Three.js
     name: 'DotScreenShader',
     uniforms: [
         {tipo: "vec2", nome:"center", valor: new THREE.Vector2(0.5,0.5)},

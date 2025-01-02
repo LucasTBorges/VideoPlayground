@@ -103,4 +103,13 @@ export default class RainbowFilter extends Filtro {
         const shader = this.shaderBase.getShader();
         return shader;
     }
+
+    onRender(timeDelta){
+        if(this.parameters.Pause){
+            return;
+        } else{
+            this.time += timeDelta;
+            this.shaderPass.uniforms.time.value = this.time;
+        }
+    }
 }

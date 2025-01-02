@@ -1,6 +1,6 @@
 
 import { THREE, GUI, EffectComposer, RenderPass } from '../util/imports.js';
-import GuiManager from './GuiManager.js';
+import GuiManager from './guiManager.js';
 import Interface from './interface.js';
 import ThreeJsCanvas from '../components/threejsCanvas/threejsCanvas.js';
 import Observable from '../util/observable.js';
@@ -21,7 +21,7 @@ export default class Aplicacao {
         this.videoService = new VideoService(this);
         this.guiManager = new GuiManager(this.gui);
         this.controls = {};
-        this.guiManager.addTab("video", this.makeVideoControls());
+        this.guiManager.addAlwaysOnItems(this.makeVideoControls());
         this.canvas = this.ui.addComponent("canvas", new ThreeJsCanvas(title)).hide();
         this.onInit = new Observable();
         this.onInit.subscribe(()=>{
