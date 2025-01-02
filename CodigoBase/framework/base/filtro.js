@@ -7,6 +7,7 @@ export default class Filtro {
     constructor(app) {
         const guiManager = app.guiManager;
         const composer = app.composer;
+        this.app = app;
         this.title = this.getTitle().replace(/\s/g, '-') + Filtro.nextId++;
         this.gui = guiManager.getGui();
         this.parentManager = guiManager;
@@ -14,7 +15,6 @@ export default class Filtro {
         this.shader = this.makeShader();
         this.shaderPass = new ShaderPass(this.shader);
         this.composer = composer;
-        this.app = app;
         this.resizeEvent = app.onResizeEvent.subscribe(this.onResize.bind(this));
         this.renderEvent = app.onRender.subscribe(this.onRender.bind(this));
         this.time = 0;

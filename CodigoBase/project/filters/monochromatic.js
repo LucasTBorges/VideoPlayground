@@ -36,7 +36,7 @@ export default class MonochromaticFilter extends Filtro {
 
     makeShader() {
         this.shaderBase = new Shader(MonochromaticShaderOptions);
-        const shader = new Shader(MonochromaticShaderOptions).getShader();
+        const shader = this.shaderBase.getShader();
         return shader;
     }
 }

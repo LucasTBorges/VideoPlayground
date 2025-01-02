@@ -20,6 +20,7 @@ function generateHeightmap( dt_size ) {
     return texture;
 
 }
+//Usar esse shader apenas com o ShaderFaceOnly, pois ele utiliza o boxVBounds e faceDetected no glitchMode para incluir o stripe no olho 
 const AnonimizacaoShaderOptions = {
     name: 'AnonimizacaoShader',
     uniforms: [
