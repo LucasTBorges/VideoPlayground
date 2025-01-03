@@ -1,5 +1,5 @@
 
-import { THREE, GUI, EffectComposer, RenderPass } from '../util/imports.js';
+import { THREE, EffectComposer, RenderPass } from '../util/imports.js';
 import GuiManager from './guiManager.js';
 import Interface from './interface.js';
 import ThreeJsCanvas from '../components/threejsCanvas/threejsCanvas.js';
@@ -13,7 +13,7 @@ export default class Aplicacao {
     constructor(title){
         this.ui = new Interface();
         this.guiComponent = this.ui.addComponent("gui", new GuiComponent());
-        this.gui = new GUI({container:this.guiComponent.getElement()}).hide();
+        this.gui = this.guiComponent.gui;
         // A ordem de inicialização dos serviços é importante.
         // As dependências de um serviço devem ser inicializadas antes dele
         this.loadingService = new LoadingService(this);

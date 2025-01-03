@@ -29,7 +29,7 @@ const AnonimizacaoShaderOptions = {
         {tipo: "float", nome:"blurRadius", valor: 30.0},
         /* Glitch */
         {tipo: "sampler2D", nome:"tDisp", valor: generateHeightmap(64)},
-        {tipo: "float", nome:"instabilidade", valor: 0.2},
+        {tipo: "float", nome:"instabilidade", valor: 0.15},
         {tipo: "bool", nome:"eyeBlock", valor: true},
     ],
     aux: `

@@ -1,0 +1,13 @@
+Modelo da máscara encontrado no SketchFab, publicado pelo usuário sleepwalker77
+
+Model Information:
+* title:	Porcelain Mask
+* source:	https://sketchfab.com/3d-models/porcelain-mask-596d7fbddfdd4cbab5a81878e1bd7741
+* author:	sleepwalker77 (https://sketchfab.com/sleepwalker77)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Porcelain Mask" (https://sketchfab.com/3d-models/porcelain-mask-596d7fbddfdd4cbab5a81878e1bd7741) by sleepwalker77 (https://sketchfab.com/sleepwalker77) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

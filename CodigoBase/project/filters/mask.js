@@ -46,10 +46,11 @@ const MaskShaderOptions = {
 };
 
 export default class MaskFilter extends Filtro {
+    //Requer que o app tenha uma textura carregada em app.imageTexture no momento da criação
     getTitle() {
         return "Mascara2D";
     }
-
+ 
     destroy() {
         super.destroy();
         this.imageTexture.dispose();

@@ -66,6 +66,11 @@ export default class Video {
         }
     }
 
+    //Retorna a razão de aspecto do vídeo
+    getRatio() {
+        return this.getWidth() / this.getHeight();
+    }
+
     //Retorna a proporção entre a o vídeo original e o vídeo ajustado para a largura da janela
     getFitRatio() {
         return this.getFitWidth() / this.getWidth();
