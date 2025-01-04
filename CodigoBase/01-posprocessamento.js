@@ -6,6 +6,8 @@ import RainbowFilter from "./project/filters/rainbow.js";
 import LogGammaFilter from "./project/filters/log-gamma.js";
 import CaleidoscopioFilter from "./project/filters/caleidoscopio.js";
 import SobelFilter from "./project/filters/sobel.js";
+import NegativoFilter from "./project/filters/negativo.js";
+import AlphaFilter from "./project/filters/alpha.js";
 class postProcApp extends Aplicacao {
     constructor() {
         super("Pós-processamento de vídeos");
@@ -20,6 +22,8 @@ class postProcApp extends Aplicacao {
             {label: "Rainbow", value: RainbowFilter},
             {label: "Caleidoscópio", value: CaleidoscopioFilter},
             {label: "Sobel", value: SobelFilter},
+            {label: "Negativo", value: NegativoFilter},
+            {label: "Alpha", value: AlphaFilter}
         ], (filter) => {
             new filter(this);
         });

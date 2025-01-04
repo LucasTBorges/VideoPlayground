@@ -4,11 +4,11 @@ import { THREE } from "../../framework/util/imports.js";
 const RainbowShaderOptions = {
     name: 'RainbowShader',
     uniforms: [
-        {tipo: "int", nome:"modo", valor: 0}, //0 - Direcional, 1 - Radial
+        {tipo: "int", nome:"modo", valor: 1}, //0 - Direcional, 1 - Radial
         {tipo: "int", nome:"distancia", valor: 0}, //0 - Eculidiana, 1 - Manhattan, 2 - Chebyshev
         {tipo: "float", nome:"frequencia", valor: 1.0},
         {tipo: "float", nome:"velocidade", valor: 1.0},
-        {tipo: "bool", nome: "reverso", valor: false}
+        {tipo: "bool", nome: "reverso", valor: true}
     ],
     declarations: "#include <common>",
     aux: `

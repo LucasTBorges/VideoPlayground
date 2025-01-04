@@ -61,9 +61,8 @@ export default class MaskFilter extends Filtro {
     }
 
     makeShader() {
-        const ShaderWithMask = {...MaskShaderOptions};
         this.imageTexture = this.app.imageTexture;
-        ShaderWithMask.uniforms.forEach(element => {
+        MaskShaderOptions.uniforms.forEach(element => {
             if (element.nome === "imagem"){
                 element.valor = this.imageTexture;
             }
