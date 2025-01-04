@@ -3,6 +3,7 @@ import Dropup from "./framework/components/dropup/dropup.js";
 import MonochromaticFilter from "./project/filters/monochromatic.js";
 import DotScreenFilter from "./project/filters/dotscreen.js";
 import RainbowFilter from "./project/filters/rainbow.js";
+import LogGammaFilter from "./project/filters/log-gamma.js";
 class postProcApp extends Aplicacao {
     constructor() {
         super("Pós-processamento de vídeos");
@@ -11,6 +12,7 @@ class postProcApp extends Aplicacao {
     makeScene() {
         super.makeScene();
         this.filterPicker = new Dropup("Adicionar Filtro", [
+            {label: "Correção Log/Gamma", value: LogGammaFilter},
             {label: "Monocromático", value: MonochromaticFilter},
             {label: "Dot Screen", value: DotScreenFilter},
             {label: "Rainbow", value: RainbowFilter}

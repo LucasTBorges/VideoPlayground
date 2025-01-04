@@ -25,9 +25,11 @@ const AnonimizacaoShaderOptions = {
     name: 'AnonimizacaoShader',
     uniforms: [
         {tipo: "int", nome:"filtro", valor: 0}, //0 - Desfoque, 1 - Glitch
+        
         /* Gaussian Blur: */
-        {tipo: "float", nome:"blurRadius", valor: 30.0},
-        /* Glitch */
+        {tipo: "float", nome:"blurRadius", valor: 25},
+        
+        /* Glitch: */
         {tipo: "sampler2D", nome:"tDisp", valor: generateHeightmap(64)},
         {tipo: "float", nome:"instabilidade", valor: 0.15},
         {tipo: "bool", nome:"eyeBlock", valor: true},
@@ -58,10 +60,10 @@ const AnonimizacaoShaderOptions = {
 			return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
 		}
         vec4 glitchMode() {
-            float angle = 0.02;
+            const float angle = 0.02;
             float distortion_y = mod(time, 1.);
             float distortion_x = boxVBounds.x+0.62*(boxVBounds.y-boxVBounds.x);
-            float amount = 0.08;
+            const float amount = 0.08;
             float seed = rand(vec2(mod(time, 1.)));
             float col_s = (eyeBlock && faceDetected)?0.05:0.;
             vec2 p = vUv;

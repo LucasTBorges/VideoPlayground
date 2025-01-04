@@ -108,12 +108,7 @@ class Mask3DApp extends FaceApp {
         }
         this.mascara.visible = false;
         this.faceApiService.detectFaceEvent.subscribe((detection)=>{
-            if (!detection.faceDetected){
-    
-                this.mascara.visible = false;
-            } else {
-                this.mascara.visible = true;
-            }
+            this.mascara.visible = detection.faceDetected;
             const vectors = this.faceApiService.getPlaneInformation(detection);
             maskGroup.position.set(vectors.pos.x,vectors.pos.y,0);
             const scale = Math.max(vectors.scale.x,vectors.scale.y);

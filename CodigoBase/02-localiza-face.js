@@ -11,11 +11,7 @@ class FaceBoxApp extends FaceApp {
         this.scene.add(this.boxPlane);
         this.boxPlane.visible = false;
         this.faceApiService.detectFaceEvent.subscribe((detection)=>{
-            if (!detection.faceDetected){
-                this.boxPlane.visible = false;
-            } else {
-                this.boxPlane.visible = true;
-            }
+            this.boxPlane.visible = detection.faceDetected;
             const vectors = this.faceApiService.getPlaneInformation(detection);
             this.boxPlane.position.set(vectors.pos.x,vectors.pos.y,vectors.pos.z);
             this.boxPlane.scale.set(vectors.scale.x,vectors.scale.y,vectors.pos.z);
