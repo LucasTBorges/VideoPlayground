@@ -1,6 +1,6 @@
 import Filtro from "../../framework/base/filtro.js";
 import Shader from "../../framework/base/shader.js";
-import { THREE } from "../../framework/util/imports.js";
+//Shader retirado do KaleidoShader do Three.js
 const CaleidoscopioShaderOptions = {
     name: 'CaleidoscopioShader',
     uniforms: [
