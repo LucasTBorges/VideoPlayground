@@ -86,7 +86,7 @@ export default class RainbowFilter extends Filtro {
         pasta.add(this.parameters, "Pause").name("Pausar")
         pasta.add(this.shaderPass.uniforms.reverso, "value").name("Reverso")
         pasta.add(this.shaderPass.uniforms.modo, "value",{Direcional:0,Radial:1}).name("Modo").onChange((value)=>{
-            if(value == 0){
+            if(value === 0){
                 this.distanciaController.hide()
             } else {
                 this.distanciaController.show()
@@ -94,7 +94,7 @@ export default class RainbowFilter extends Filtro {
         })
         pasta.add(this.shaderPass.uniforms.frequencia, "value").name("Frequência").min(0.1).max(5).step(0.05)
         pasta.add(this.shaderPass.uniforms.velocidade, "value").name("Velocidade").min(0.25).max(3).step(0.05)
-        this.distanciaController = pasta.add(this.shaderPass.uniforms.distancia, "value",{Euclidiana:0,Manhattan:1,Chebyshev:2}).name("Distância").hide()
+        this.distanciaController = pasta.add(this.shaderPass.uniforms.distancia, "value",{Euclidiana:0,Manhattan:1,Chebyshev:2}).name("Distância")
         return [pasta]
     }
 

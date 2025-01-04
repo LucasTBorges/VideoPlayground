@@ -1,8 +1,9 @@
 import Filtro from "../../framework/base/filtro.js";
 import Shader from "../../framework/base/shader.js";
-//Utiliza a imagem atual como máscara alpha aplicada sobre a imagem original
-const AlphaShaderOptions = {
-    name: 'AlphaShader',
+//Múltiplica a imagem atual com a imagem original. Se greyscale for verdadeiro, a imagem original é convertida para escala de cinza antes da multiplicação
+//A ideia é que seja aplicado sobre outros filtros para utilizar a imagem anterior como máscara para a imagem original
+const MultiplyShaderOptions = {
+    name: 'MultiplyShader',
     uniforms: [
         {tipo: "sampler2D", nome:"textura"},
         {tipo:"bool", nome:"greyscale", valor: false},
@@ -15,7 +16,7 @@ const AlphaShaderOptions = {
     `
 };
 //Usa o vídeo carregado na aplicação como uniform
-export default class AlphaFilter extends Filtro {
+export default class MultiplyFilter extends Filtro {
     makeParameters() {
         const filter =this;
         return {
@@ -24,11 +25,11 @@ export default class AlphaFilter extends Filtro {
     }
 
     getTitle() {
-        return "Alpha";
+        return "Multiply";
     }
 
     makeControls() {
-        const pasta = this.gui.addFolder("Alpha")
+        const pasta = this.gui.addFolder("Multiply")
         pasta.add(this.parameters, "Remover Filtro")
         pasta.add(this.shaderPass.uniforms.filterOn, "value").name("Filtro Ligado")
         pasta.add(this.shaderPass.uniforms.greyscale, "value").name("Apenas luminância")
@@ -36,12 +37,12 @@ export default class AlphaFilter extends Filtro {
     }
 
     makeShader() {
-        AlphaShaderOptions.uniforms.forEach((uniform) => {
+        MultiplyShaderOptions.uniforms.forEach((uniform) => {
             if (uniform.nome === "textura") {
                 uniform.valor = this.app.video.getTexture();
             }
         });
-        this.shaderBase = new Shader(AlphaShaderOptions);
+        this.shaderBase = new Shader(MultiplyShaderOptions);
         const shader = this.shaderBase.getShader();
         return shader;
     }

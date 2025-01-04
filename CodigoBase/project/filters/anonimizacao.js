@@ -3,6 +3,8 @@ import ShaderFaceOnly from "../../framework/base/shaderFaceOnly.js";
 import { THREE } from "../../framework/util/imports.js";
 //Gaussian Blur no código encontrado em https://stackoverflow.com/questions/64837705/opengl-blurring
 //Glitch baseado no GlitchPass do Three.js
+
+//Função para gerar um heightmap aleatório retirada do GlitchPass do Three.js
 function generateHeightmap( dt_size ) {
 
     const data_arr = new Float32Array( dt_size * dt_size );
@@ -24,15 +26,18 @@ function generateHeightmap( dt_size ) {
 const AnonimizacaoShaderOptions = {
     name: 'AnonimizacaoShader',
     uniforms: [
-        {tipo: "int", nome:"filtro", valor: 0}, //0 - Desfoque, 1 - Glitch
+        {tipo: "int", nome:"filtro", valor: 2}, //0 - Desfoque, 1 - Glitch, 2 - Pixelização
         
         /* Gaussian Blur: */
-        {tipo: "float", nome:"blurRadius", valor: 25},
+        {tipo: "float", nome:"blurRadius", valor: 20},
         
         /* Glitch: */
         {tipo: "sampler2D", nome:"tDisp", valor: generateHeightmap(64)},
         {tipo: "float", nome:"instabilidade", valor: 0.15},
         {tipo: "bool", nome:"eyeBlock", valor: true},
+
+        /* Pixelização: */
+        {tipo: "float", nome:"pixelate", valor: 0.6},
     ],
     aux: `
         //Gaussian Blur:
@@ -61,10 +66,10 @@ const AnonimizacaoShaderOptions = {
 		}
         vec4 glitchMode() {
             const float angle = 0.02;
-            float distortion_y = mod(time, 1.);
-            float distortion_x = boxVBounds.x+0.62*(boxVBounds.y-boxVBounds.x);
+            float distortion_y = mod(time, 1.); //Deixa a linha de distorção vertical atravessando a tela com o tempo
+            float distortion_x = boxVBounds.x+0.62*(boxVBounds.y-boxVBounds.x); //Deixa a linha de distorção horizontal na altura dos olhos
             const float amount = 0.08;
-            float seed = rand(vec2(mod(time, 1.)));
+            float seed = rand(vec2(mod(time, 1.))); //Seed para o noise baseada no tempo gera efeito de estática
             float col_s = (eyeBlock && faceDetected)?0.05:0.;
             vec2 p = vUv;
             float xs = floor(gl_FragCoord.x / 0.5);
@@ -99,6 +104,21 @@ const AnonimizacaoShaderOptions = {
             vec4 snow = 200.*amount*vec4(rand(vec2(xs * seed,ys * seed*50.))*0.2);
             return newColor+ snow;
         }
+
+        //Pixelização:
+        vec4 pixelization() {
+            float max_pixels = max(resolution.x, resolution.y);
+            float pixel = max_pixels - pow(pixelate,1./10.)*max_pixels;
+            float ratio = resolution.x/resolution.y;
+            vec2 grade;
+            if (ratio > 1.0) {
+                grade = vec2(pixel, pixel/ratio);
+            } else {
+                grade = vec2(pixel*ratio, pixel);
+            }
+            vec2 coordenada = vUv - mod(vUv, 1.0/grade);
+            return texture2D(tDiffuse, coordenada);
+        }
     `,
     main:`
         vec4 color = vec4(1.0);
@@ -108,6 +128,9 @@ const AnonimizacaoShaderOptions = {
                 break;
             case 1:
                 color = glitchMode();
+                break;
+            case 2:
+                color = pixelization();
                 break;
         }
         return color;
@@ -127,8 +150,9 @@ export default class AnonimizacaoFilter extends Filtro {
 
     makeControls() {
         const filtroController = this.gui.add(this.shaderPass.uniforms.filtro, "value",
-            {"Gaussian Blur":0,
-            "Glitch Mode":1})
+            {"Pixelização":2,
+            "Glitch Mode":1,
+            "Gaussian Blur":0})
             .name("Filtro")
             .onChange((value)=>{
                 switch(value){
@@ -138,17 +162,23 @@ export default class AnonimizacaoFilter extends Filtro {
                     case 1:
                         this.parentManager.switchTo("glitch");
                         break;
+                    case 2:
+                        this.parentManager.switchTo("pixel");
+                        break;
                 }
             });
         const filtroOnController = this.gui.add(this.shaderPass.uniforms.filterOn, "value").name("Filtro Ligado")
         const faceOnlyController = this.gui.add(this.shaderPass.uniforms.faceOnly, "value").name("Apenas Rosto")
         this.parentManager.addAlwaysOnItems([filtroController, filtroOnController, faceOnlyController])
         this.parentManager.addTab("desfoque", [
-            this.gui.add(this.shaderPass.uniforms.blurRadius, "value",20,40).name("Raio")
+            this.gui.add(this.shaderPass.uniforms.blurRadius, "value",10,40).name("Raio").hide()
         ])
         this.parentManager.addTab("glitch", [
             this.gui.add(this.shaderPass.uniforms.instabilidade, "value",0,1).name("Instabilidade").hide(),
             this.gui.add(this.shaderPass.uniforms.eyeBlock, "value").name("Stripes").hide()
+        ])
+        this.parentManager.addTab("pixel", [
+            this.gui.add(this.shaderPass.uniforms.pixelate, "value",0,1).name("Pixelização")
         ])
         return []
     }

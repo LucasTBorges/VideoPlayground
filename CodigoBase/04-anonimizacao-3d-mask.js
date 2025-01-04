@@ -17,6 +17,7 @@ class Mask3DApp extends FaceApp {
         this.parameters = {iluminacao:2};
         this.guiManager.addAlwaysOnItems(this.makeLightControls()); 
     }
+    
     loadMask(){
         const gltfLoader = new GLTFLoader();
         gltfLoader.load("/CodigoBase/assets/mask/scene.gltf", 

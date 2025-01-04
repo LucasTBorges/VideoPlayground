@@ -18,7 +18,7 @@ const SobelShaderOptions = {
                     return color.g;
                 case 2:
                     return color.b;
-                default:
+                case 4:
                     return luminance(color.rgb);
             }
         }
@@ -72,9 +72,9 @@ const SobelShaderOptions = {
             for (int i = 0; i < 3; i++) {
                 outputColor[i] = getGradientMagnitude(i);
             }
-            return vec4(outputColor, 1.0);
+            return clamp(vec4(outputColor, 1.0),0.,1.);
         }
-        return vec4(vec3(getGradientMagnitude(4)), 1.0);
+        return clamp(vec4(vec3(getGradientMagnitude(4)), 1.0),0.,1.);
     `
 };
 

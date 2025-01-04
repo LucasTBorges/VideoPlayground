@@ -1,6 +1,5 @@
 import { ShaderPass } from "../util/imports.js";
 import { THREE } from "../../framework/util/imports.js";
-import Observable from "../util/observable.js";
 import ShaderFaceOnly from "./shaderFaceOnly.js";
 export default class Filtro {
     static nextId = 0;
@@ -85,7 +84,7 @@ export default class Filtro {
         throw new Error("makeControls não foi implementado");
     }
 
-    //Deve criar e retornar o shader do filtro
+    //Deve criar e retornar o shader do filtro, e salvar a instância de Shader em this.shaderBase
     makeShader(){
         throw new Error("makeShader não foi implementado");
     }
