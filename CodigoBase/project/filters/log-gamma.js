@@ -11,7 +11,6 @@ const LogGammaShaderOptions = {
         {tipo: "bool", nome:"graph", valor: false}, //Visualização do gráfico?
     ],
     declarations: `
-        const float EPSILON = 1e-10;
 		const float negativeLogFactorConst = 100.0;
 		const float positiveLogFactorConst = 3.0;
 		const float maxLogFactor = 30.0;

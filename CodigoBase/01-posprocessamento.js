@@ -4,6 +4,7 @@ import MonochromaticFilter from "./project/filters/monochromatic.js";
 import DotScreenFilter from "./project/filters/dotscreen.js";
 import RainbowFilter from "./project/filters/rainbow.js";
 import LogGammaFilter from "./project/filters/log-gamma.js";
+import CaleidoscopioFilter from "./project/filters/caleidoscopio.js";
 class postProcApp extends Aplicacao {
     constructor() {
         super("Pós-processamento de vídeos");
@@ -15,7 +16,8 @@ class postProcApp extends Aplicacao {
             {label: "Correção Log/Gamma", value: LogGammaFilter},
             {label: "Monocromático", value: MonochromaticFilter},
             {label: "Dot Screen", value: DotScreenFilter},
-            {label: "Rainbow", value: RainbowFilter}
+            {label: "Rainbow", value: RainbowFilter},
+            {label: "Caleidoscópio", value: CaleidoscopioFilter}
         ], (filter) => {
             new filter(this);
         });
