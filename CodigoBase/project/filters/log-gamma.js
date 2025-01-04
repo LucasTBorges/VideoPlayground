@@ -122,11 +122,12 @@ export default class LogGammaFilter extends Filtro {
         pasta.add(this.shaderPass.uniforms.transformation, "value", {"Log":0, "Gamma":1}).name("Transformação");
         pasta.add(this.shaderPass.uniforms.graph, "value").name("Visualizar Curva");
         pasta.add(this.shaderPass.uniforms.factor, "value", -9.95, 10).name("Fator de Brilho");
+		const subtab = "rgb"+this.title;
         pasta.add(this.parameters, "Intensidade por Canal").name("Intensidade por Canal").onChange((value)=>{
             if(value){
-                this.parentManager.showTab("rgb");
+                this.parentManager.showTab(subtab);
             } else {
-                this.parentManager.hideTab("rgb");
+                this.parentManager.hideTab(subtab);
                 this.channels.forEach((channel)=>{
                     channel.setValue(1);
                 });
@@ -137,7 +138,7 @@ export default class LogGammaFilter extends Filtro {
             pasta.add(this.shaderPass.uniforms.channels.value, "y", 0, 1).name("Canal G").hide(),
             pasta.add(this.shaderPass.uniforms.channels.value, "z", 0, 1).name("Canal B").hide(),
         ]
-        this.parentManager.addTab("rgb", this.channels);
+        this.parentManager.addTab(subtab, this.channels);
         return [pasta]
     }
 

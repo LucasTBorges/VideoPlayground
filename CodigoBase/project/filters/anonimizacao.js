@@ -149,6 +149,9 @@ export default class AnonimizacaoFilter extends Filtro {
     }
 
     makeControls() {
+        const desfoque = "desfoque"+this.id;
+        const glitch = "glitch"+this.id;
+        const pixel = "pixel"+this.id;
         const filtroController = this.gui.add(this.shaderPass.uniforms.filtro, "value",
             {"Pixelização":2,
             "Glitch Mode":1,
@@ -157,27 +160,27 @@ export default class AnonimizacaoFilter extends Filtro {
             .onChange((value)=>{
                 switch(value){
                     case 0:
-                        this.parentManager.switchTo("desfoque");
+                        this.parentManager.switchTo(desfoque);
                         break;
                     case 1:
-                        this.parentManager.switchTo("glitch");
+                        this.parentManager.switchTo(glitch);
                         break;
                     case 2:
-                        this.parentManager.switchTo("pixel");
+                        this.parentManager.switchTo(pixel);
                         break;
                 }
             });
         const filtroOnController = this.gui.add(this.shaderPass.uniforms.filterOn, "value").name("Filtro Ligado")
         const faceOnlyController = this.gui.add(this.shaderPass.uniforms.faceOnly, "value").name("Apenas Rosto")
         this.parentManager.addAlwaysOnItems([filtroController, filtroOnController, faceOnlyController])
-        this.parentManager.addTab("desfoque", [
+        this.parentManager.addTab(desfoque, [
             this.gui.add(this.shaderPass.uniforms.blurRadius, "value",10,40).name("Raio").hide()
         ])
-        this.parentManager.addTab("glitch", [
+        this.parentManager.addTab(glitch, [
             this.gui.add(this.shaderPass.uniforms.instabilidade, "value",0,1).name("Instabilidade").hide(),
             this.gui.add(this.shaderPass.uniforms.eyeBlock, "value").name("Stripes").hide()
         ])
-        this.parentManager.addTab("pixel", [
+        this.parentManager.addTab(pixel, [
             this.gui.add(this.shaderPass.uniforms.pixelate, "value",0,1).name("Pixelização")
         ])
         return []

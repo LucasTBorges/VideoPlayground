@@ -7,7 +7,8 @@ export default class Filtro {
         const guiManager = app.guiManager;
         const composer = app.composer;
         this.app = app;
-        this.title = this.getTitle().replace(/\s/g, '-') + Filtro.nextId++;
+        this.id = Filtro.nextId++
+        this.title = this.getTitle().replace(/\s/g, '-') + this.id;
         this.gui = guiManager.getGui();
         this.parentManager = guiManager;
         this.parameters = this.makeParameters();
