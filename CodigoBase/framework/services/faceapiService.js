@@ -115,7 +115,10 @@ export default class FaceApiService extends Service {
                 detection,
                 {width: 1, height: 1}
             );
-            this.detection.facePos = {x: detection.box.x, y: detection.box.y};
+            //Correção da bounding box, que costuma ficar um pouco deslocada
+            const offsetX = this.modelPicked === MODELS.TINY?0.016:0.006
+            const offsetY = this.modelPicked === MODELS.TINY?-0.007:0
+            this.detection.facePos = {x: detection.box.x+offsetX, y: detection.box.y+offsetY};
             this.detection.faceDim = {x: detection.box.width, y: detection.box.height};
         } else {
             this.detection.facePos = {x:0,y:0};

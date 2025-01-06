@@ -104,7 +104,6 @@ class Mask3DApp extends FaceApp {
                 this.lights[index].intensity = 4;
                 this.scene.add(this.lights[index]);
                 this.scene.add(this.lights[index]);
-                console.log(i,j)
             }
         }
         this.mascara.visible = false;
