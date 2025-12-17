@@ -9,5 +9,8 @@ export default class ToastService extends Service {
                 toast.hideToast(); // Destrói o toast após o tempo determinado
             }, duration);
         }
+        if(type==="error"){
+            console.error(title+": ", message);
+        }
     }
 }

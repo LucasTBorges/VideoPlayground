@@ -19,8 +19,12 @@ export default class FaceApp extends Aplicacao {
             .subscribe((video)=>{
                 app.loadingService.show();
                 app.video = video;
-                app.makeScene();
-                app.onInit.emit();
+                app.faceApiService.loadModelEvent.subscribe(()=>{
+                    app.makeScene();
+                    app.onInit.emit();
+                }).onFail((error)=>{
+                    app.toastService.show("error","Erro ao carregar o modelo de detecção facial", error, 4000);
+                });
             }).onFail((error)=>{
                 app.toastService.show("error","Erro ao carregar o vídeo", error, 4000);
             });

@@ -16,6 +16,9 @@ export default class Observable {
     // Adiciona um callback a ser chamado quando o evento for executado
     subscribe(callback){
         this.subscriptions.push(callback);
+        if(this.completed){
+            callback(this.response);
+        }
         return this
     }
 
