@@ -1,6 +1,5 @@
 # VideoPlayground
 
-# VideoPlayground 🎥
 ![Three.js](https://img.shields.io/badge/Three.js-r169-black) ![Face-api.js](https://img.shields.io/badge/Face--api.js-Detection-orange)
 
 VideoPlayground is an interactive computer graphics web application focused on real-time video post-processing and face tracking. 
