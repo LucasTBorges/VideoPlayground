@@ -19,6 +19,21 @@
     <header class="app-header">
       <div class="logo">VideoPlayground</div>
       <div class="subtitle">Computer Graphics & Post-Processing Demos</div>
+      <style>
+      .loading-overlay-iframe {
+        position: absolute; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%;
+        background-color: rgba(15, 23, 42, 0.479);
+        z-index: 50;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      </style>
     </header>
 
     <div class="app-container">
@@ -49,8 +64,28 @@
       </nav>
 
       <main class="content-area">
-        <iframe name="examples" title="Project Demo" src="./src/01-posprocessamento.html"></iframe>
+        <iframe id="main-iframe" name="examples" title="Project Demo" src="./src/01-posprocessamento.html"></iframe>
+        <div id="app-loader" class="loading-overlay-iframe" style="display: none;">
+          <div class="spinner"></div>
+          <p style="margin-top: 15px; font-size: 0.9rem; color: #cbd5e1;">Loading Module...</p>
+        </div>
       </main>
+
+      <script>
+        // Lida com a exibição do loader ao trocar de demo
+        const iframe = document.getElementById('main-iframe');
+        const loader = document.getElementById('app-loader');
+        const navLinks = document.querySelectorAll('.nav-item');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                loader.style.display = 'flex';
+            });
+        });
+        iframe.addEventListener('load', () => {
+            loader.style.display = 'none';
+        });
+      </script>
 
     </div>
   </body>
