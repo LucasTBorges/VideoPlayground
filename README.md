@@ -1,10 +1,15 @@
 # VideoPlayground
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg) ![Three.js](https://img.shields.io/badge/Three.js-r169-black) ![Face-api.js](https://img.shields.io/badge/Face--api.js-Detection-orange)
+# VideoPlayground 🎥
+![Three.js](https://img.shields.io/badge/Three.js-r169-black) ![Face-api.js](https://img.shields.io/badge/Face--api.js-Detection-orange)
 
 VideoPlayground is an interactive computer graphics web application focused on real-time video post-processing and face tracking. 
 
 Developed as a project for the Computer Graphics course at the Federal University of Bahia (UFBA), this application serves as a sandbox to explore shaders, image processing, and 3D overlay techniques directly in the browser.
+
+### [Try the Live Demo](https://lucastborges.github.io/VideoPlayground/)
+
+---
 
 ## Key Features
 
