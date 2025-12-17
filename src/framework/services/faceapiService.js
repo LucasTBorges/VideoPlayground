@@ -2,7 +2,7 @@ import Service from "../base/service.js";
 import ModelPicker from "../components/modelPicker/modelPicker.js";
 import Observable from "../util/observable.js";
 import { THREE } from "../util/imports.js";
-const MODELS_URL =  "/lib/face-api/models"
+const MODELS_URL =  "../lib/face-api/models"
 export const MODELS = {
     TINY: "tinyface",
     MOBILENET: "mobilenet"
