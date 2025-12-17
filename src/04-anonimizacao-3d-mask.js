@@ -20,7 +20,7 @@ class Mask3DApp extends FaceApp {
     
     loadMask(){
         const gltfLoader = new GLTFLoader();
-        gltfLoader.load("/src/assets/mask/scene.gltf", 
+        gltfLoader.load("./assets/mask/scene.gltf", 
         (mesh)=>{
             this.mascara = mesh.scene;
             this.onMaskLoaded.emit();

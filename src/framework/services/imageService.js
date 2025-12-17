@@ -39,7 +39,7 @@ export default class ImageService extends Service {
     onChooseDefault(){
         this.loadingService.show();
         let textureLoader = new THREE.TextureLoader();
-        textureLoader.load("/src/assets/mascara.png",
+        textureLoader.load("./assets/mascara.png",
         (tex)=>{
             this.loadingService.hide();
             this.textureEvent.emit(tex);

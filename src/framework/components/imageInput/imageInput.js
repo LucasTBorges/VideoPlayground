@@ -15,7 +15,7 @@ export default class ImageInput extends Component {
                 <h3 class="text-center">Choose the image to be used as mask</h3>
                 <div class="image-input-card-body">
                     <button id="file-button" class="image-input-button-17" role="button">Submit a File</button>
-                    <button id="default-button" class="image-input-button-17 bottom-button" role="button"><img src="/src/assets/mascara.png" class="image-input-default-image" alt="Digital art of venetian mask in emoji style">Use default image</button>
+                    <button id="default-button" class="image-input-button-17 bottom-button" role="button"><img src="./assets/mascara.png" class="image-input-default-image" alt="Digital art of venetian mask in emoji style">Use default image</button>
                 </div>
             </div>
         `;
