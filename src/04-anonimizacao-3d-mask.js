@@ -12,7 +12,7 @@ class Mask3DApp extends FaceApp {
         this.initiated =false;
         Observable.and(this.onInit, this.onMaskLoaded)
         .subscribe(()=>{this.makeScene();this.initiated = true;})
-        .onFail((error)=>{this.toastService.show("error","Erro ao iniciar aplicação", error, 4000)});
+        .onFail((error)=>{this.toastService.show("error","Error initializing application", error, 4000)});
         this.makeCopyCanvas();
         this.parameters = {iluminacao:2};
         this.guiManager.addAlwaysOnItems(this.makeLightControls()); 
@@ -44,18 +44,18 @@ class Mask3DApp extends FaceApp {
                 app.onInit.emit();
                 app.showModelCredits()
             }).onFail((error)=>{
-                app.toastService.show("error","Erro ao carregar o vídeo", error, 4000);
+                app.toastService.show("error","Error loading video", error, 4000);
             });
         })
         .onFail((error)=>{
-            this.toastService.show("error","Erro ao carregar o modelo de detecção de face", error, 4000);
+            this.toastService.show("error","Error loading face detection model", error, 4000);
         });
     }
 
     makeLightControls(){
         this.lightControl = this.gui
-        .add(this.parameters, 'iluminacao',{"Normal":0, "Colorida":1, "Dinâmica":2})
-        .name("Iluminação")
+        .add(this.parameters, 'iluminacao',{"Normal":0, "Colored":1, "Dynamic":2})
+        .name("Lighting")
         .onChange((value)=>{
             if(!this.initiated) return;
             switch(value){
@@ -78,7 +78,7 @@ class Mask3DApp extends FaceApp {
     makeScene(){
         super.makeScene();
         if (!this.mascara){
-            this.toastService.show("error","Máscara não carregada", "A máscara 3D não foi carregada corretamente", 4000);
+            this.toastService.show("error","Mask not loaded", "The 3D mask was not loaded correctly", 4000);
             return
         }
         const ratio = this.video.getRatio();
