@@ -1,0 +1,67 @@
+#title-overlay {
+    /* Posicionamento: Agora flutua solto do canto */
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 2;
+    
+    /* Layout Flex */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px; /* Espaço entre texto e botão fechar */
+    
+    /* Estilo Visual (Dark Glass) */
+    background-color: rgba(15, 23, 42, 0.7); /* Azul escuro transparente */
+    backdrop-filter: blur(8px);              /* Efeito vidro */
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borda fina */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+    /* Tipografia e Forma */
+    color: #f1f5f9; /* Texto Branco */
+    padding: 12px 20px;
+    border-radius: 12px; /* Todo arredondado */
+    font-family: 'Poppins', "Google Sans", sans-serif; /* Prioriza Poppins */
+    font-size: 1rem; /* Tamanho mais equilibrado que 2em */
+    font-weight: 500;
+    
+    transition: all 0.3s ease;
+}
+
+.closed-overlay {
+    opacity: 0;
+    pointer-events: none; /* Garante que não dê para clicar quando sumir */
+    transform: translateY(-10px); /* Sobe um pouquinho ao sumir */
+}
+
+#title-overlay #output-text {
+    font-size: 1em; /* Herda o tamanho do pai */
+    padding: 0;
+    margin: 0;
+    white-space: nowrap; /* Evita quebra de linha feia */
+}
+
+.icon-close {
+    width: 1.1em;
+    height: 1.1em;
+    margin-left: 0; /* O gap do pai já resolve o espaço */
+    margin-top: 1px;
+    
+    /* TRUQUE: Inverte a cor da imagem de preto para branco */
+    filter: brightness(0) invert(1);
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+/* Aplicar estilo ao hover do botão/ícone */
+#close-button:hover .icon-close {
+    opacity: 1;
+    cursor: pointer;
+    transform: scale(1.1); /* Leve zoom no X ao passar o mouse */
+}
+/* Caso o #close-button seja a div pai do ícone */
+#close-button:hover {
+    cursor: pointer;
+}

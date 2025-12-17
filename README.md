@@ -1,50 +1,85 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/paaPtAyX)
-# Lab 18 - Imagem, Textura e Efeitos de Pós-Processamento (Atividade Pontuada)
+# VideoPlayground
 
-## Objetivos:
+![License](https://img.shields.io/badge/license-MIT-blue.svg) ![Three.js](https://img.shields.io/badge/Three.js-r150+-black) ![Face-api.js](https://img.shields.io/badge/Face--api.js-Detection-orange)
 
-1. Consolidar os conceitos de mapeamento de textura [1];
-2. Aprofundar o entendimento de técnicas de processamento de imagem [1];
-3. Reforçar a conhecimento prático no uso de texturas, imagens e *shaders* dentro do contexto do *framework Three.JS* [2]. 
+VideoPlayground is an interactive computer graphics web application focused on real-time video post-processing and face tracking. 
 
-# Atividades:
+Developed as a project for the Computer Graphics course at the Federal University of Bahia (UFBA), this application serves as a sandbox to explore shaders, image processing, and 3D overlay techniques directly in the browser.
 
-1. As técnicas de pós-processamento [4] [5] disponíveis no *framework Three.JS* podem ser aplicadas tanto em fluxos de imagens sintetizadas pelo *pipeline* gráfico, como vemos na maioria dos exemplos do *Three.JS*, quanto em imagens reais estáticas, com abordado no Lab 17. 
+## Key Features
 
-Podemos explorar também a possibilidade de aplicar essas técnicas em fluxos de imagens reais, ou seja, videos, que podem ser pré-gravados ou capturados em tempo real por uma camera (webcam).
+* **Flexible Input:** Use your Webcam for real-time interaction or upload a Video File (loops automatically).
+* **Playback Control:** Pause and resume video playback at any time via the UI.
+* **Face Tracking Features:** Powered by `face-api.js`, users can switch between:
+    * *Tiny Face Detector* (Better Performance).
+    * *SSD Mobilenet V1* (Higher Accuracy).
 
-Pesquise as ferramentas que o *Three.JS* [3] fornece para visualização de fluxos de imagens reais (video ou captura da webcam). Crie uma aplicação que aplique pelo menos 3 técnicas de pós-processamento a esses fluxos de imagens. A seleção do tipo de pós-processamento deve ser feita via *GUI*. **(valor 1,5)**
+---
 
-2. Técnicas de anonimização em imagens e vídeo permitem descaracterizar pessoas de modo que suas identidades sejam preservadas. Essas técnicas identificam o local onde há rosto e, aplicando alguma estratégia de borramento ou de alguma forma "bloquear" sua identificação. 
+## Modules
 
-APIs como o [face-api.js](https://itnext.io/face-api-js-javascript-api-for-face-recognition-in-the-browser-with-tensorflow-js-bcc2a6c4cf07) permitem a localização facial em imagens e videos de forma simples a fácil.
+The application is divided into four distinct playgrounds:
 
-Dentro desse contexto:
+### 1. Video Post-Processing
+A general-purpose processing engine. You can stack multiple filters on top of each other to create complex visual effects.
+* **Stackable Filters:** Add as many filters as you like (e.g., Log/Gamma Correction, Sobel, Monochrome).
+* **Order Matters:** The output of one filter feeds into the next, allowing for unique combinations depending on the stack order.
+* **Granular Control:** Each active filter adds a folder to the control panel where its specific parameters can be tweaked.
 
-a. Construa uma aplicação utilizando o *Three.JS* e o *face-api.js* para localizar o rosto de uma pessoa em uma imagem. A localização deve ser feita desenhando um plano, em *wireframe*, indicando sua localização. **(valor 2,0)**
+### 2. Anonymization (2D Mask)
+Focuses on face detection to overlay 2D assets.
+* **Custom Masks:** Upload your own image (PNG/JPG) to use as a mask or select the default mask.
+* **Tracking:** The image automatically scales and positions itself based on the detected face bounding box.
 
-b. Modifique a aplicação do item anterior para que uma imagem seja aplicada sobre o rosto da pessoa. Utilize uma imagem simples como os exemplos da Figura abaixo. **(valor 1,5)**
+### 3. Anonymization (3D Mask)
+A more advanced implementation using **Three.js** to render a 3D object over the user's face.
+* **Dynamic Lighting:** The lighting on the 3D mask changes dynamically based on the average color of the video's corners, simulating environment reflection.
 
-<img src="./img/anonymous.jpg" width=200> <img src="./img/smile.jpg" width=200>
+### 4. Anonymization (Filters)
+Instead of overlaying objects, this module uses post-processing shaders to "censor" or stylize identity.
+* **Privacy Filters:** Includes Pixelation, Gaussian Blur, and Glitch effects.
+* **Region of Interest (ROI):** Choose to apply the effect to the **entire video** or restrict it only to the **detected face area**.
 
-c. Substitua a imagem por um modelo 3D de mascara ou rosto [2]. **(valor 2,0)**  
+---
 
-d. Com base nas técnicas de pós-processamento que o *Three.JS* fornece, escolha duas que possam ser aplicadas, apenas na região do rosto da pessoa, para descaracterizar a sua identidade. **(valor 3,0)**
+## Utilized Libraries
 
-## Observações Importantes:
+* **[Three.js](https://threejs.org/):** Core rendering engine for video textures, shaders, and 3D models.
+* **[face-api.js](https://github.com/justadudewhohacks/face-api.js/):** JavaScript API for face detection and face landmark recognition on the browser.
+* **[lil-gui](https://lil-gui.georgealways.com/):** Lightweight floating graphical user interface for controlling parameters.
 
-Tal como os exemplos fornecidos em aula, suas aplicação não devem necessitar de nenhum outro *framework* fora do *Three.js* e do *face-api.js*. Como sugestão, faça com nos labs utilizados no curso, incorporando apenas a parte da *face-api.js* localizada no diretorio *dist*, no seu repositório. 
+---
 
-Modelos, imagens e outros *assets* que voce utilizem também devem estar localizados dentro do seu repositório. 
+## How to Run
 
-## Referências:
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/LucasTBorges/VideoPlayground.git
+    cd VideoPlayground
+    ```
 
-[1] MARSCHNER, Steve; SHIRLEY, Peter. "**Fundamentals of Computer Graphics**". 5th Edition CRC Press, 2021.
+2.  **Start a local server:**
+    * **VS Code (Recommended):** Install the "Live Server" extension and click "Go Live" on `index.html`.
+    * **Python:**
+        ```bash
+        # Python 3.x
+        python -m http.server
+        ```
+    * **Node.js:**
+        ```bash
+        npx http-server
+        ```
 
-[2] Dirksen, J., **Learn Three.JS: Program 3D animations and visualizations for the web with JavaScript and WebGL**. 4th Edition, Packt Publishing, 2023.
+3.  **Open in Browser:**
+    Navigate to `http://localhost:5500` (or the port specified by your server).
 
-[3]  **Three.JS**, https://threejs.org/ 
+---
 
-[4] **Post Processing**, https://threejs.org/manual/#en/post-processing
+## Assets
 
-[5]  **How to use post-processing**, https://threejs.org/docs/#manual/en/introduction/How-to-use-post-processing 
+* **3D Asset:** ["Porcelain Mask"](https://sketchfab.com/3d-models/porcelain-mask-596d7fbddfdd4cbab5a81878e1bd7741) by *sleepwalker77* on Sketchfab (CC BY 4.0).
+* **Default Mask Image:** ["Venitian Carnival Mask"](https://www.emojis.com/emoji/venitian-carnival-mask-FZqS2JhUdl) from Emojis.com.
+
+---
+
+> **Note:** For best performance, use a browser with hardware acceleration enabled (Chrome/Edge/Firefox recommended). Face detection speed depends on your GPU/CPU capabilities.
