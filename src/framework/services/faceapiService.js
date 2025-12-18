@@ -51,7 +51,7 @@ export default class FaceApiService extends Service {
                 });
             }catch(e){
                 service.modelPicked = undefined;
-                service.toastService.show("error","Erro ao carregar modelo de reconhecimento facial", e, 5000);
+                onGetModel.fail(e);
             }
         });
         menu.onMobilenet(()=>{
